@@ -10,10 +10,8 @@ public class TransactionModes : MonoBehaviour
 	public float transitionDuration = 2f;
 	// seconds
 	public Animator fadeAnimator;
-	public GameObject[] interiorAssetsVR;
-	public GameObject[] exteriorAssetsAR;
-	public GameObject[] cutCarAssetsAR;
-	public GameObject[] showroomAssetsVR;
+	public GameObject[] VRAssets;
+	public GameObject[] ARAssets;
 
 	private GameMode currentMode, previousMode;
 	private SwitchMode switchM;
@@ -22,6 +20,7 @@ public class TransactionModes : MonoBehaviour
 	void Start ()
 	{
 		switchM = gameObject.GetComponent<SwitchMode> ();
+		LoadAssetsOf (MixedRealityMode.AR_MONO);
 	}
 
 	#region Switch Mixed Reality mode with Animation
@@ -51,14 +50,11 @@ public class TransactionModes : MonoBehaviour
 			// IN AR
 			switchM.SwitchAR ();
 		}
-
-	
-		// Loading Assets
-
-
+//		 Loading Assets
+		LoadAssetsOf ( mode);
 
 		yield return new WaitForSeconds ((0.25f));
-		SetARCamPos ();
+//		SetARCamPos (); // Try to enable it 
 		if (requiredAnimation)
 			Animation (false);
 		previousMode = gMode;
@@ -89,49 +85,25 @@ public class TransactionModes : MonoBehaviour
 
 	#endregion
 
-	#region Switch Mixed Reality Without Animation
-
-	/// <summary>
-	/// Swiths the Mixed reality mode without fade animation.
-	/// </summary>
-	/// <param name="mode">Mode.</param>
-
-	internal void SwithMode (MixedRealityController.Mode mode, GameMode gmode)
-	{
-		if (mode == MixedRealityController.Mode.VIEWER_VR) {
-	//			Debug.LogError ("Setting up VR MODE ");
-
-			MixedRealityController.Instance.SetMode (MixedRealityController.Mode.VIEWER_VR); // was viewer ar 
-			VuforiaBehaviour.Instance.SetWorldCenterMode (VuforiaAbstractBehaviour.WorldCenterMode.CAMERA);
-
-//			VideoBackgroundManager.Instance.SetVideoBackgroundEnabled (false);
-//			DigitalEyewearBehaviour.Instance.SetViewerActive (false);
-//			DigitalEyewearBehaviour.Instance.SetMode (Device.Mode.MODE_VR);
-			ActivateDatasets (false);
-		} else if (mode == MixedRealityController.Mode.ROTATIONAL_VIEWER_AR) {
-			//			Debug.LogError ("Setting up AR MODE ");
-			ActivateDatasets (true);
-			MixedRealityController.Instance.SetMode (MixedRealityController.Mode.ROTATIONAL_HANDHELD_AR);
-			VideoBackgroundManager.Instance.SetVideoBackgroundEnabled (true);
-		}
-
-		// Load assets here
-	}
-
-	#endregion
-
 	#region Activate Asset
 
-	internal void LoadAssetsOf (GameMode mode)
+	internal void LoadAssetsOf (MixedRealityMode mode)
 	{
-		previousMode = mode;
+		foreach (var item1 in VRAssets) {
+			item1.SetActive (mode == MixedRealityMode.VR_STEREO);
+		}
+
+		foreach (var item1 in ARAssets) {
+			item1.SetActive (mode == MixedRealityMode.AR_MONO);
+		}
+//		previousMode = mode;
 	}
 
 	#endregion
 
 	void OnApplicationPause ()
 	{
-		SetARCamPos ();
+//		SetARCamPos ();
 	}
 
 	#region AR camera pos setting
@@ -140,7 +112,7 @@ public class TransactionModes : MonoBehaviour
 	/// Sets the AR cam position. You to call this method when mode switch to from VR 
 	/// and also when Application again activate. Like (Lock / screen sleep) 
 	/// </summary>
-	internal void SetARCamPos ()
+/*	internal void SetARCamPos ()
 	{
 		// Setting up custom camera setting for VR 
 		// AR will adjust automatically
@@ -152,6 +124,6 @@ public class TransactionModes : MonoBehaviour
 			pCam.fieldOfView = sCam.fieldOfView = 50;
 		}
 	}
-
+*/
 	#endregion
 }

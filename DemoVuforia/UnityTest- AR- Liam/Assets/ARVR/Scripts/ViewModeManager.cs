@@ -25,6 +25,9 @@ public class ViewModeManager : MonoBehaviour {
         vuforia.RegisterVuforiaInitializedCallback(SetViewMode);
     }
 
+	void Start(){
+	}
+
     #endregion // MONOBEHAVIOUR_METHODS
 
 

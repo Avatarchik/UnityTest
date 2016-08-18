@@ -6,9 +6,9 @@ namespace Eventro.Testapp.Enums
 	public enum GameMode
 	{
 		// For VR Stereo
-		VR,
+		CubeTest,
 		// For AR Mono
-		AR,
+		VideoPlayerTest,
 	}
 
 	public enum ButtonsType

@@ -62,28 +62,43 @@ namespace Eventro.Testapp.Controllers
 		void Update ()
 		{
 			if (Input.GetKeyDown (KeyCode.E)) {
-				SetGameMode (GameMode.AR);	
+				SetMixedRealityMode (MixedRealityMode.AR_MONO);	
 			} else if (Input.GetKeyDown (KeyCode.R)) {
-				SetGameMode (GameMode.VR);	
+				SetMixedRealityMode (MixedRealityMode.VR_STEREO);	
 			}
 		}
 
+		#region Set Mixed Reality Mode
+		internal void SetMixedRealityMode (MixedRealityMode mode)
+		{
+			switch (mode) {
+			case MixedRealityMode.VR_STEREO: //Stereo
+				switchMode.SwitchVR ();			
+				break;
+
+			case MixedRealityMode.AR_MONO: // Mono
+				switchMode.SwitchAR ();			
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		#endregion
 
 		#region Set Game Mode
 
 		internal void SetGameMode (GameMode mode)
 		{
 			switch (mode) {
-			case GameMode.AR: //Stereo
-				switchMode.SwitchAR ();			
+			case GameMode.CubeTest: //Stereo
+				
 				break;
 
-			case GameMode.VR: // Mono
-				switchMode.SwitchVR ();			
+			case GameMode.VideoPlayerTest: // Mono
+				
 				break;
-
-			
-
 			default:
 				break;
 			}

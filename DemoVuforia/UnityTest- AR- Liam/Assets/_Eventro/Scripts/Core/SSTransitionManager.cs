@@ -179,11 +179,11 @@ namespace Eventro.Testapp.Core
 		private MixedRealityController.Mode GetMixedRealityMode_Eventro ()
 		{
 			if (InAR) { // we need mono
-				print("In Ar");
+//				print("In Ar");
 				return ModeConfig.isFullScreenMode ?
 					MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
 			} else { // in VR // we need stereo
-				print("In Vr");
+//				print("In Vr");
 				return ModeConfig.isFullScreenMode ?
 					MixedRealityController.Mode.HANDHELD_VR : MixedRealityController.Mode.VIEWER_VR;
 			}
