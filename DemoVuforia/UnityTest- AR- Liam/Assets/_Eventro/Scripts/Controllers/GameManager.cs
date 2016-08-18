@@ -9,12 +9,14 @@ using Vuforia;
 namespace Eventro.Testapp.Controllers
 {
 
-	public class GameManager : MonoBehaviour, ITrackableEventHandler
+	public class GameManager : MonoBehaviour
 	{
 
 		public static GameManager Instance;
+
 		private SwitchMode switchMode;
-		public static event Action<bool> TrackerState;
+
+
 		#region Init
 
 		void Awake ()
@@ -34,10 +36,24 @@ namespace Eventro.Testapp.Controllers
 			InitStart ();
 		}
 
-
 		private void InitStart ()
 		{
-		
+		}
+
+		private void OnEnable(){
+			Delegate (true);
+		}
+
+		private void OnDisable(){
+			Delegate (false);
+		}
+			
+		private void Delegate( bool state){
+			if (state) {
+				DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
+			} else {
+				DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
+			}
 		}
 
 		#endregion
@@ -45,7 +61,11 @@ namespace Eventro.Testapp.Controllers
 		// Update is called once per frame
 		void Update ()
 		{
-
+			if (Input.GetKeyDown (KeyCode.E)) {
+				SetGameMode (GameMode.AR);	
+			} else if (Input.GetKeyDown (KeyCode.R)) {
+				SetGameMode (GameMode.VR);	
+			}
 		}
 
 
@@ -71,35 +91,16 @@ namespace Eventro.Testapp.Controllers
 
 		#endregion
 
-
-		#region ITrackableEventHandler implementation
-
-		public void OnTrackableStateChanged (TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
+		#region Object Font And Lost 
+		void DefaultTrackableEventHandler_TrackerState (bool obj)
 		{
-			bool trackerFound;
-			if (newStatus == TrackableBehaviour.Status.DETECTED || newStatus == TrackableBehaviour.Status.TRACKED || newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED) {
-				OnTrackerFound ();
-				trackerFound = true;
-			} else {
-				trackerFound = false;
-				OnTrackerLost ();
+			if (obj) { // Object Found
+			
+			} else { // Object Lost
+			
 			}
-
 		}
-
-
-		private void OnTrackerFound ()
-		{
-			//Set the cube upside
-			TrackerState(true);
-		}
-
-		private void OnTrackerLost ()
-		{
-			TrackerState(false);
-		}
-
 		#endregion
-
+	
 	}
 }

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using Vuforia;
 using Eventro.Testapp.UI;
 using Eventro.Testapp.Common;
 using Eventro.Testapp.Enums;
@@ -9,11 +8,10 @@ using Eventro.Testapp.Enums;
 namespace Eventro.JazzTour.Controllers
 {
 
-	public class UIManager : MonoBehaviour, ITrackableEventHandler
+	public class UIManager : MonoBehaviour
 	{
 
 		public static UIManager Instance;
-		private TrackableBehaviour trackableBehaviour;
 
 		#region Init
 
@@ -29,7 +27,6 @@ namespace Eventro.JazzTour.Controllers
 		void InitStart ()
 		{
 			Instance = this;
-			trackableBehaviour.RegisterTrackableEventHandler (this);
 		}
 
 		void OnEnable ()
@@ -89,42 +86,15 @@ namespace Eventro.JazzTour.Controllers
 
 		#endregion
 
-		#region ITrackableEventHandler implementation
-
-		public void OnTrackableStateChanged (TrackableBehaviour.Status previousStatus, TrackableBehaviour.Status newStatus)
-		{
-			bool trackerFound;
-			if (newStatus == TrackableBehaviour.Status.DETECTED || newStatus == TrackableBehaviour.Status.TRACKED || newStatus == TrackableBehaviour.Status.EXTENDED_TRACKED) {
-				OnTrackerFound ();
-				trackerFound = true;
-			} else {
-				trackerFound = false;
-				OnTrackerLost ();
-			}
-
-		}
 
 
-		private void OnTrackerFound ()
-		{
-
-		}
-
-		private void OnTrackerLost ()
-		{
-
-		}
-
-		#endregion
-
-		#region Car Body paint
+		#region Car
 
 		// It will set the body color and colorname on the bar
 		internal void CarBodyColorSelected (string colorName)
 		{
 		}
 
-		[System.Obsolete ("This button is removed as per 20 July 2016 Build. Now this button is no more present in hierarchy")]
 		internal void BackButtonColorBar ()
 		{
 		}

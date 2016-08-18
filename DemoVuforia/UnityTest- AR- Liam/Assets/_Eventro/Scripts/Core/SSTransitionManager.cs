@@ -53,7 +53,7 @@ namespace Eventro.Testapp.Core
 
 			VideoBackgroundManager.Instance.SetVideoBackgroundEnabled (true);
 
-			mCurrentMode = GetMixedRealityMode ();
+			mCurrentMode = GetMixedRealityMode_Eventro ();
 			MixedRealityController.Instance.SetMode (mCurrentMode);
 			UpdateVisibleObjects ();
 
@@ -72,7 +72,7 @@ namespace Eventro.Testapp.Core
 			// even if the app was paused in VR mode
 			bool isVideoCurrentlyEnabled = IsVideoBackgroundRenderingEnabled ();
 
-			MixedRealityController.Mode mixedRealityMode = GetMixedRealityMode ();
+			MixedRealityController.Mode mixedRealityMode = GetMixedRealityMode_Eventro ();
 
 			if ((mCurrentMode != mixedRealityMode) || (InAR != isVideoCurrentlyEnabled)) {
 				// mixed reality mode to switch to
@@ -179,9 +179,11 @@ namespace Eventro.Testapp.Core
 		private MixedRealityController.Mode GetMixedRealityMode_Eventro ()
 		{
 			if (InAR) { // we need mono
+				print("In Ar");
 				return ModeConfig.isFullScreenMode ?
-					MixedRealityController.Mode.VIEWER_AR : MixedRealityController.Mode.VIEWER_AR;
+					MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
 			} else { // in VR // we need stereo
+				print("In Vr");
 				return ModeConfig.isFullScreenMode ?
 					MixedRealityController.Mode.HANDHELD_VR : MixedRealityController.Mode.VIEWER_VR;
 			}
