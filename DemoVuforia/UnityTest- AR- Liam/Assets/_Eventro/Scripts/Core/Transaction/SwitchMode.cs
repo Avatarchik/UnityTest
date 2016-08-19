@@ -28,14 +28,15 @@ public class SwitchMode : MonoBehaviour
 //		default:
 //			break;
 //		} 
+//		SwitchStereo();
 	}
 
-	public void SwitchAR ()
+	public void SwitchMono ()
 	{
 		tm.mTransitionCursor = 0;
 	}
 
-	public void SwitchVR ()
+	public void SwitchStereo ()
 	{
 		tm.mTransitionCursor = 1;
 	}

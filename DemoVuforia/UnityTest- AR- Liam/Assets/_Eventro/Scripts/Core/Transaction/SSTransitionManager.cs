@@ -87,7 +87,7 @@ namespace Eventro.Testapp.Core
 				if (mCurrentMode == MixedRealityController.Mode.HANDHELD_VR
 				            || mCurrentMode == MixedRealityController.Mode.VIEWER_VR) {
 					Debug.Log ("Switching to VR: deactivating datasets");
-					ActivateDatasets (false);
+					//ActivateDatasets (false);
 				}
 
 				// As we are moving back to AR, we re-activate the Datasets,
@@ -98,7 +98,7 @@ namespace Eventro.Testapp.Core
 				if (mCurrentMode == MixedRealityController.Mode.HANDHELD_AR
 				            || mCurrentMode == MixedRealityController.Mode.VIEWER_AR) {
 					Debug.Log ("Switching to AR: activating datasets");
-					ActivateDatasets (true);
+					//ActivateDatasets (true);
 				}
 
 				MixedRealityController.Instance.SetMode (mCurrentMode);
@@ -185,7 +185,7 @@ namespace Eventro.Testapp.Core
 			} else { // in VR // we need stereo
 //				print("In Vr");
 				return ModeConfig.isFullScreenMode ?
-					MixedRealityController.Mode.HANDHELD_VR : MixedRealityController.Mode.VIEWER_VR;
+					MixedRealityController.Mode.VIEWER_AR : MixedRealityController.Mode.VIEWER_AR;
 			}
 		}
 

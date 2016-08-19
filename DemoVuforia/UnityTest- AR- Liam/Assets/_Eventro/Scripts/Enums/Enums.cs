@@ -20,7 +20,7 @@ namespace Eventro.Testapp.Enums
 	}
 
 	public enum MixedRealityMode{
-		VR_STEREO,
+		AR_STEREO,
 		AR_MONO,
 	}
 }

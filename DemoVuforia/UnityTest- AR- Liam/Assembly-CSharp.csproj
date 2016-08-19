@@ -116,9 +116,9 @@
      <Compile Include="Assets\_Eventro\Scripts\Controllers\GameManager.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\TrackingObjectConroller.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\UIManager.cs" />
-     <Compile Include="Assets\_Eventro\Scripts\Core\SSTransitionManager.cs" />
-     <Compile Include="Assets\_Eventro\Scripts\Core\SwitchMode.cs" />
-     <Compile Include="Assets\_Eventro\Scripts\Core\TransactionModes.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\SSTransitionManager.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\SwitchMode.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\TransactionModes.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Enums\Enums.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\Buttons.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\CameraRay.cs" />

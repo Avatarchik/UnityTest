@@ -5,13 +5,14 @@ using Eventro.Testapp.UI;
 using Eventro.Testapp.Common;
 using Eventro.Testapp.Enums;
 
-namespace Eventro.JazzTour.Controllers
+namespace Eventro.Testapp.Controllers
 {
 
 	public class UIManager : MonoBehaviour
 	{
 
 		public static UIManager Instance;
+		private bool modeToggle = false;
 
 		#region Init
 
@@ -86,8 +87,6 @@ namespace Eventro.JazzTour.Controllers
 
 		#endregion
 
-
-
 		#region Car
 
 		// It will set the body color and colorname on the bar
@@ -101,5 +100,17 @@ namespace Eventro.JazzTour.Controllers
 
 		#endregion
 
+		/// <summary>
+		/// Toggles the Mixed Reality mode.
+		/// </summary>
+		public void ToggleMode ()
+		{
+			if (!modeToggle) { // By default app will open in Stereo So load mono
+				GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_MONO);
+			} else {
+				GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_STEREO);
+			}
+			modeToggle = !modeToggle;	
+		}
 	}
 }

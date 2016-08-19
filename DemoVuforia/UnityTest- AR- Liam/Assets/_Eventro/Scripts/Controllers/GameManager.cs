@@ -15,7 +15,8 @@ namespace Eventro.Testapp.Controllers
 		public static GameManager Instance;
 
 		private SwitchMode switchMode;
-
+		private TransactionModes transactionMode;
+		internal MixedRealityMode currentMixedRealityMode;
 
 		#region Init
 
@@ -28,6 +29,9 @@ namespace Eventro.Testapp.Controllers
 		{
 			Instance = this;
 			switchMode = gameObject.GetComponent<SwitchMode> ();
+			transactionMode = gameObject.GetComponent<TransactionModes> ();
+			currentMixedRealityMode = MixedRealityMode.AR_STEREO;
+			SetMixedRealityMode (currentMixedRealityMode);	
 		}
 
 		// Use this for initialization
@@ -40,15 +44,18 @@ namespace Eventro.Testapp.Controllers
 		{
 		}
 
-		private void OnEnable(){
+		private void OnEnable ()
+		{
 			Delegate (true);
 		}
 
-		private void OnDisable(){
+		private void OnDisable ()
+		{
 			Delegate (false);
 		}
-			
-		private void Delegate( bool state){
+
+		private void Delegate (bool state)
+		{
 			if (state) {
 				//DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
 			} else {
@@ -64,25 +71,15 @@ namespace Eventro.Testapp.Controllers
 			if (Input.GetKeyDown (KeyCode.E)) {
 				SetMixedRealityMode (MixedRealityMode.AR_MONO);	
 			} else if (Input.GetKeyDown (KeyCode.R)) {
-				SetMixedRealityMode (MixedRealityMode.VR_STEREO);	
+				SetMixedRealityMode (MixedRealityMode.AR_STEREO);	
 			}
 		}
 
 		#region Set Mixed Reality Mode
+
 		internal void SetMixedRealityMode (MixedRealityMode mode)
 		{
-			switch (mode) {
-			case MixedRealityMode.VR_STEREO: //Stereo
-				switchMode.SwitchVR ();			
-				break;
-
-			case MixedRealityMode.AR_MONO: // Mono
-				switchMode.SwitchAR ();			
-				break;
-
-			default:
-				break;
-			}
+			transactionMode.SwitchMode (mode);	
 		}
 
 		#endregion
@@ -106,7 +103,8 @@ namespace Eventro.Testapp.Controllers
 
 		#endregion
 
-		#region Object Font And Lost 
+		#region Object Font And Lost
+
 		void DefaultTrackableEventHandler_TrackerState (bool obj)
 		{
 			if (obj) { // Object Found
@@ -115,6 +113,7 @@ namespace Eventro.Testapp.Controllers
 			
 			}
 		}
+
 		#endregion
 	
 	}
