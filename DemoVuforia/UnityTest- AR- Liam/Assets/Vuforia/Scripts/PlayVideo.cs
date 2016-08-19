@@ -34,7 +34,7 @@ public class PlayVideo : MonoBehaviour
         // in order to display the UI menu options properly.
 #if !UNITY_EDITOR
         if(!paused) {
-            Screen.orientation = ScreenOrientation.Portrait;
+//            Screen.orientation = ScreenOrientation.Portrait;
         }
 #endif
     }
@@ -167,7 +167,7 @@ public class PlayVideo : MonoBehaviour
         yield return new WaitForSeconds(0.7f);
 
         // Finally we set to Portrait
-        Screen.orientation = ScreenOrientation.Portrait;
+//        Screen.orientation = ScreenOrientation.Portrait;
 #endif //!UNITY_EDITOR
     }
     #endregion //PUBLIC_METHODS

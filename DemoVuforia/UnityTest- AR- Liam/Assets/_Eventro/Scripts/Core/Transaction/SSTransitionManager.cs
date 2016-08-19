@@ -18,7 +18,7 @@ namespace Eventro.Testapp.Core
 
 		private BlackMaskBehaviour mBlackMask;
 
-		internal float mTransitionCursor = 0;
+		internal float mTransitionCursor = 1;
 		private bool mPlaying = false;
 		private bool mBackward = false;
 		private MixedRealityController.Mode mCurrentMode = MixedRealityController.Mode.HANDHELD_AR;
@@ -179,13 +179,11 @@ namespace Eventro.Testapp.Core
 		private MixedRealityController.Mode GetMixedRealityMode_Eventro ()
 		{
 			if (InAR) { // we need mono
-//				print("In Ar");
 				return ModeConfig.isFullScreenMode ?
 					MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
-			} else { // in VR // we need stereo
-//				print("In Vr");
+			} else { // we need stereo
 				return ModeConfig.isFullScreenMode ?
-					MixedRealityController.Mode.VIEWER_AR : MixedRealityController.Mode.VIEWER_AR;
+					MixedRealityController.Mode.ROTATIONAL_VIEWER_AR : MixedRealityController.Mode.ROTATIONAL_VIEWER_AR;
 			}
 		}
 
