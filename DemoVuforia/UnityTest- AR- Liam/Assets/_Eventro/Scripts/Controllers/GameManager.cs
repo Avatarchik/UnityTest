@@ -50,9 +50,9 @@ namespace Eventro.Testapp.Controllers
 			
 		private void Delegate( bool state){
 			if (state) {
-				DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
+				//DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
 			} else {
-				DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
+				//DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
 			}
 		}
 

@@ -46,33 +46,38 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Editor\Vuforia\SampleOrientationSetter.cs" />
+     <Compile Include="Assets\Editor\Vuforia\VideoPlaybackScripts\VideoPlaybackEditor.cs" />
      <Compile Include="Assets\Vuforia\Editor\Scripts\ComponentFactoryStarter\ComponentFactoryStarter.cs" />
      <Compile Include="Assets\Vuforia\Editor\Scripts\ExtensionImport.cs" />
      <Compile Include="Assets\Vuforia\Editor\Scripts\PostProcessBuildPlayer.cs" />
      <Compile Include="Assets\Vuforia\Editor\Scripts\Unzipper\SharpZipLibUnzipper.cs" />
+     <Compile Include="Assets\Vuforia\Vuforia Video Playback\Editor\Scripts\VideoPlaybackImport.cs" />
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
-     <None Include="Assets\EasyMovieTexture\Unlit_SphereInside.shader" />
-     <None Include="Assets\ARVR\Shaders\TransparentUnlit.shader" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\readme_SDK.txt" />
+     <None Include="Assets\Vuforia\Shaders\TransparentUnlit.shader" />
      <None Include="Assets\link.xml" />
      <None Include="Assets\Vuforia\Shaders\VertexLitWithZ.shader" />
-     <None Include="Assets\ARVR\Shaders\SkyBlend.shader" />
+     <None Include="Assets\Vuforia\Shaders\SkyBlend.shader" />
+     <None Include="Assets\Plugins\iOS\VuforiaMediaSource\src\VideoPlayerHelper.mm.txt" />
      <None Include="Assets\Vuforia\Shaders\RenderVideoBackground.shader" />
-     <None Include="Assets\EasyMovieTexture\Chromakey.shader" />
      <None Include="Assets\StreamingAssets\QCAR\Stones.xml" />
-     <None Include="Assets\EasyMovieTexture\readme.txt" />
-     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\VuforiaMediaSource\AndroidManifest.xml" />
+     <None Include="Assets\Plugins\Android\VuforiaMediaSource\build.xml" />
      <None Include="Assets\Vuforia\Shaders\VideoBackground.shader" />
-     <None Include="Assets\EasyMovieTexture\Chromakey2.shader" />
-     <None Include="Assets\ARVR\Shaders\OverlayMesh.shader" />
+     <None Include="Assets\license_3rdpartynotice.txt" />
+     <None Include="Assets\StreamingAssets\QCAR\StonesAndChips.xml" />
+     <None Include="Assets\Plugins\Android\VuforiaMediaSource\README.txt" />
+     <None Include="Assets\Vuforia\Shaders\OverlayMesh.shader" />
      <None Include="Assets\Vuforia\Editor\WebcamProfiles\profiles.xml" />
      <None Include="Assets\Vuforia\Shaders\DepthMask.shader" />
-     <None Include="Assets\readme_SDK.txt" />
-     <None Include="Assets\ARVR\Shaders\BlackMask.shader" />
+     <None Include="Assets\Plugins\iOS\VuforiaMediaSource\README.txt" />
+     <None Include="Assets\Vuforia\Shaders\BlackMask.shader" />
      <None Include="Assets\Vuforia\Shaders\ClippingMask.shader" />
      <None Include="Assets\Vuforia\Shaders\BrightTexture.shader" />
-     <None Include="Assets\license_3rdpartynotice.txt" />
+     <None Include="Assets\Plugins\iOS\VuforiaMediaSource\src\VideoPlayerWrapper.mm.txt" />
      <None Include="Assets\Vuforia\Shaders\Text3D.shader" />
-     <None Include="Assets\ARVR\Shaders\GroundBlend.shader" />
+     <None Include="Assets\Vuforia\Shaders\GroundBlend.shader" />
      <None Include="Assets\StreamingAssets\QCAR\EventroDB.xml" />
  <Reference Include="Assembly-UnityScript-Editor-firstpass">
  <HintPath>/Harsh/WorkSpace/Online Repo/Liam AR Evern/DemoVuforia/UnityTest- AR- Liam/Library/ScriptAssemblies/Assembly-UnityScript-Editor-firstpass.dll</HintPath>
@@ -128,6 +133,10 @@
  <Reference Include="UnityEditor.iOS.Extensions.Common">
  <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Common.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp.csproj">
+      <Project>{CAC5283D-CE24-BB65-CF02-7D567A8E616C}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

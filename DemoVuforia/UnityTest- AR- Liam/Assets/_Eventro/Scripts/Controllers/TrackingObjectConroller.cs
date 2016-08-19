@@ -23,9 +23,9 @@ public class TrackingObjectConroller : MonoBehaviour {
 
 	private void Delegate( bool state){
 		if (state) {
-			Vuforia.DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
+//			Vuforia.DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
 		} else {
-			Vuforia.DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
+//			Vuforia.DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
 		}
 	}
 	#endregion

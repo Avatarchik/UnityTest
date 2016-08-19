@@ -5,7 +5,6 @@ Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
 
 using UnityEngine;
-using System;
 
 namespace Vuforia
 {
@@ -18,7 +17,6 @@ namespace Vuforia
         #region PRIVATE_MEMBER_VARIABLES
  
         private TrackableBehaviour mTrackableBehaviour;
-		public static event Action<bool> TrackerState;
     
         #endregion // PRIVATE_MEMBER_VARIABLES
 
@@ -84,7 +82,7 @@ namespace Vuforia
             {
                 component.enabled = true;
             }
-			TrackerState (true);
+
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
         }
 
@@ -105,7 +103,7 @@ namespace Vuforia
             {
                 component.enabled = false;
             }
-			TrackerState (false);
+
             Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
         }
 
