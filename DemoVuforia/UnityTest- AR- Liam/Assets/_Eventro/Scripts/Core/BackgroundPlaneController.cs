@@ -5,9 +5,10 @@ public class BackgroundPlaneController : MonoBehaviour {
 
 	[Tooltip("The the Child of the ARCamer's -> StereoCameraLeft's -> Background plane Object here")]
 	public GameObject backgroundPlane;
-
+	private Vector3 initailPosition; 
 	// Use this for initialization
 	IEnumerator Start () {
+		initailPosition = backgroundPlane.transform.position;
 		yield return new WaitForSeconds (0.75f);
 		SetBackgroundPos ();
 	}
@@ -32,7 +33,10 @@ public class BackgroundPlaneController : MonoBehaviour {
 
 	}
 
-	internal void SetBackgroundPosDelay(){
+	internal void SetBackgroundPosDelayStereo(){
 		StartCoroutine (Start());
+	}
+	internal void SetBackgroundPosDelayMono(){
+		backgroundPlane.transform.position = initailPosition;
 	}
 }

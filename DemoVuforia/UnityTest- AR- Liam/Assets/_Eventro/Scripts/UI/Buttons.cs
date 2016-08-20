@@ -142,7 +142,7 @@ namespace Eventro.Testapp.UI
 		}
 
 		private void VideoButtonNonFocused(){
-		
+		 // Stop Video
 		}
 		#endregion
 	}

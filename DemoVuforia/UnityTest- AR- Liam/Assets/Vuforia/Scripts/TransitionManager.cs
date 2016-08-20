@@ -82,7 +82,9 @@ public class TransitionManager : MonoBehaviour
             if (mCurrentMode == MixedRealityController.Mode.HANDHELD_AR)
             {
                 Debug.Log("Switching to Mono: deactivating datasets");
-//                ActivateDatasets(false);
+				if (setBackgroundPlanePos && mCurrentMode == MixedRealityController.Mode.VIEWER_AR) {
+					backgroundPlaneController.SetBackgroundPosDelayMono ();
+				}
             }
 
             // As we are moving back to AR, we re-activate the Datasets,
@@ -95,8 +97,7 @@ public class TransitionManager : MonoBehaviour
                 Debug.Log("Switching to Stereo: activating datasets");
 //                ActivateDatasets(true);
 				if (setBackgroundPlanePos && mCurrentMode == MixedRealityController.Mode.VIEWER_AR) {
-					backgroundPlaneController.SetBackgroundPosDelay ();
-					print ("Setting pos");
+					backgroundPlaneController.SetBackgroundPosDelayStereo ();
 				}
 			}
 
