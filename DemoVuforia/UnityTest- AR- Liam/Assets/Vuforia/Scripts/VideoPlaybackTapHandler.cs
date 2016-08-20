@@ -16,6 +16,12 @@ public class VideoPlaybackTapHandler : TapHandler
     #endregion //PRIVATE_MEMBERS
 
 
+	#region Foe Focused on Play Button
+	internal void VideoButtonFocused(){
+		OnSingleTapConfirmed ();
+	}
+	#endregion
+
     #region PROTECTED_METHODS
     protected override void OnSingleTapConfirmed()
     {

@@ -117,6 +117,7 @@
      <Compile Include="Assets\_Eventro\Scripts\Controllers\TrackingObjectConroller.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\UIManager.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Core\BackgroundPlaneController.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\ETTransitionManager.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\SSTransitionManager.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\SwitchMode.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\TransactionModes.cs" />

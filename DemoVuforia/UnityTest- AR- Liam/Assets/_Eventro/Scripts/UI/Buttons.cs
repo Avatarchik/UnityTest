@@ -40,7 +40,7 @@ namespace Eventro.Testapp.UI
 		/// <summary>
 		/// Occurs when button foucse complete.
 		/// </summary>
-		public static event Action<string> buttonFoucsedComplete;
+		public static event Action<string> buttonFoucsedComplete ;
 
 
 		// Use this for initialization
@@ -54,6 +54,15 @@ namespace Eventro.Testapp.UI
 		{
 			if (isFocused) {
 				switch (buttonType) {
+
+				case ButtonsType.Custom:
+					CustomButtonFocused ();
+					break;
+
+				case ButtonsType.VideoButton:
+					VideoButtonFocused ();
+					break;
+
 				case ButtonsType.Hotspot:
 					// Increasing focus time and filling the bar
 					isFocusedTime = +Time.deltaTime;
@@ -67,6 +76,7 @@ namespace Eventro.Testapp.UI
 						eventFired = true;
 					}
 					break;
+
 				}
 			} else {  
 				// To reset all the setting done when not/diconnect focussed  
@@ -80,13 +90,23 @@ namespace Eventro.Testapp.UI
 						hotspotFillImage.GetComponent<Renderer> ().material.SetFloat ("_Cutoff", fillAmount); 
 					}
 					break;
+				
+				case ButtonsType.Custom:
+					CustomButtonNonFocused ();
+					break;
+
+				case ButtonsType.VideoButton:
+					VideoButtonNonFocused ();
+					break;
 				}
+
+
 			}
 		}
 
 		#region Custom 3D
 
-		private void Custom3DFocused ()
+		private void CustomButtonFocused ()
 		{
 			// Increasing the foucs time and change the material 
 			if (isFocusedTime < focusCountdown) { 
@@ -101,7 +121,7 @@ namespace Eventro.Testapp.UI
 			}
 		}
 
-		private void Custom3DNonFocused ()
+		private void CustomButtonNonFocused ()
 		{
 			gameObject.GetComponent<Renderer> ().material = arNonFoucusMaterial;
 		
@@ -109,5 +129,21 @@ namespace Eventro.Testapp.UI
 
 		#endregion
 
+
+		#region Video Button
+		private void VideoButtonFocused(){
+			if (isFocusedTime < focusCountdown) { 
+				isFocusedTime = isFocusedTime + Time.deltaTime;
+			}
+			if ((isFocusedTime >= focusCountdown) && !eventFired) {
+				buttonFoucsedComplete (gameObject.name);
+				eventFired = true;
+			}
+		}
+
+		private void VideoButtonNonFocused(){
+		
+		}
+		#endregion
 	}
 }

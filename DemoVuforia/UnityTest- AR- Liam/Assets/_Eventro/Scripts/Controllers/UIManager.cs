@@ -13,6 +13,7 @@ namespace Eventro.Testapp.Controllers
 
 		public static UIManager Instance;
 		private bool modeToggle = false;
+		private PlayVideo vuforiaPlayVideo;
 
 		#region Init
 
@@ -28,6 +29,7 @@ namespace Eventro.Testapp.Controllers
 		void InitStart ()
 		{
 			Instance = this;
+			vuforiaPlayVideo = GameObject.Find ("ARCamera").GetComponent <PlayVideo> ();
 		}
 
 		void OnEnable ()
@@ -50,7 +52,6 @@ namespace Eventro.Testapp.Controllers
 				Buttons.buttonFoucsedComplete += Buttons_buttonFoucsedComplete;
 			} else {
 				Buttons.buttonFoucsedComplete -= Buttons_buttonFoucsedComplete;
-			
 			}
 		
 		}
@@ -66,6 +67,10 @@ namespace Eventro.Testapp.Controllers
 		// Update is called once per frame
 		void Update ()
 		{
+			if (Input.GetKeyDown (KeyCode.Y)) {
+				PlayVideoOf ("TransformerVideo");
+			}
+
 			#region Back Button
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				Application.Quit ();
@@ -77,40 +82,26 @@ namespace Eventro.Testapp.Controllers
 
 		private void HandleFoucusedComplete (string objName)
 		{
-
 			switch (objName) {
+			case "TransformerVideo":
+				// Play transformer video
+				print ("Play transformer video");
+				PlayVideoOf (objName);
+				break;
 
-			// Custom 3D  // There are some duplicate buttons present in the Hierarchy of ARHUD Exterior / ARHUD Interior, So please Stay AWAKE
 		
 			}
 		}
 
 		#endregion
 
-		#region Car
-
-		// It will set the body color and colorname on the bar
-		internal void CarBodyColorSelected (string colorName)
-		{
-		}
-
-		internal void BackButtonColorBar ()
-		{
-		}
-
-		#endregion
-
 		/// <summary>
-		/// Toggles the Mixed Reality mode.
+		/// Play the video which the pointer has focused.
 		/// </summary>
-		public void ToggleMode ()
-		{
-			if (!modeToggle) { // By default app will open in Stereo So load mono
-				GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_MONO);
-			} else {
-				GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_STEREO);
-			}
-			modeToggle = !modeToggle;	
+		private void PlayVideoOf(string focusedObject){
+			VideoPlaybackBehaviour vpb;
+			vpb = GameObject.Find (focusedObject).GetComponentInChildren<VideoPlaybackBehaviour> ();
+			vuforiaPlayVideo.PlayFocusedVideo (vpb);
 		}
 	}
 }

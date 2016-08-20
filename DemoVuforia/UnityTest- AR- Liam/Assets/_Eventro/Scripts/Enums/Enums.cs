@@ -14,8 +14,9 @@ namespace Eventro.Testapp.Enums
 	public enum ButtonsType
 	{
 		// For VR Stereo
+		Custom,
 		Hotspot,
-
+		VideoButton,
 
 	}
 

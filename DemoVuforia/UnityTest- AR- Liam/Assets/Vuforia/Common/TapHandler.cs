@@ -48,9 +48,9 @@ public class TapHandler : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Escape))
         {
 #if (UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
-            Application.LoadLevel("Vuforia-1-About");   
+//            Application.LoadLevel("Vuforia-1-About");   
 #else // UNITY_5_3 or above
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Vuforia-1-About");
+//            UnityEngine.SceneManagement.SceneManager.LoadScene("Vuforia-1-About");
 #endif
         }
 #endif
@@ -59,7 +59,7 @@ public class TapHandler : MonoBehaviour
 
 
     #region PRIVATE_METHODS
-    private void HandleTap()
+	private void HandleTap()
     {
         if (mTapCount == 1)
         {
@@ -94,7 +94,7 @@ public class TapHandler : MonoBehaviour
             }
         }
     }
-    #endregion // PRIVATE_METHODS
+    #endregion 
 
 
     #region PROTECTED_METHODS

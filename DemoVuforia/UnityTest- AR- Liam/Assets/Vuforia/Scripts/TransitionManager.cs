@@ -14,7 +14,7 @@ public class TransitionManager : MonoBehaviour
     #region PRIVATE_MEMBER_VARIABLES
     private BlackMaskBehaviour mBlackMask;
 
-    private float mTransitionCursor = 0;
+	internal float mTransitionCursor = 0;
     private bool mPlaying = false;
     private bool mBackward = false;
     private MixedRealityController.Mode mCurrentMode = MixedRealityController.Mode.HANDHELD_AR;
@@ -23,8 +23,11 @@ public class TransitionManager : MonoBehaviour
 
 
     #region PUBLIC_MEMBER_VARIABLES
-    public GameObject[] VROnlyObjects;
-    public GameObject[] AROnlyObjects;
+    public GameObject[] monoOnlyObjects;
+    public GameObject[] stereoOnlyObjects;
+	public BackgroundPlaneController backgroundPlaneController;
+	public bool setBackgroundPlanePos = false;
+
 
     [Range(0.1f, 5.0f)]
     public float transitionDuration = 1.5f; // seconds
@@ -76,11 +79,10 @@ public class TransitionManager : MonoBehaviour
             // (with AutoStopCameraIfNotRequired ON by default, camera/tracker
             //  will be turned off for performance optimization).
           
-            if (mCurrentMode == MixedRealityController.Mode.HANDHELD_VR
-                || mCurrentMode == MixedRealityController.Mode.VIEWER_VR)
+            if (mCurrentMode == MixedRealityController.Mode.HANDHELD_AR)
             {
-                Debug.Log("Switching to VR: deactivating datasets");
-                ActivateDatasets(false);
+                Debug.Log("Switching to Mono: deactivating datasets");
+//                ActivateDatasets(false);
             }
 
             // As we are moving back to AR, we re-activate the Datasets,
@@ -88,15 +90,19 @@ public class TransitionManager : MonoBehaviour
             // this will ensure that the Tracker and Camera are restarted, 
             // in case they were previously stopped when moving to VR
             // before activating the AR mode
-            if (mCurrentMode == MixedRealityController.Mode.HANDHELD_AR
-                || mCurrentMode == MixedRealityController.Mode.VIEWER_AR)
+            if (mCurrentMode == MixedRealityController.Mode.VIEWER_AR)
             {
-                Debug.Log("Switching to AR: activating datasets");
-                ActivateDatasets(true);
-            }
+                Debug.Log("Switching to Stereo: activating datasets");
+//                ActivateDatasets(true);
+				if (setBackgroundPlanePos && mCurrentMode == MixedRealityController.Mode.VIEWER_AR) {
+					backgroundPlaneController.SetBackgroundPosDelay ();
+					print ("Setting pos");
+				}
+			}
 
             MixedRealityController.Instance.SetMode(mCurrentMode);
             UpdateVisibleObjects();
+
         }
 
         if (mPlaying)
@@ -129,6 +135,9 @@ public class TransitionManager : MonoBehaviour
                 mPlaying = false;
                 SetBlackMaskVisible(false, 0);
             }
+
+		
+
         }
     }
     #endregion // MONOBEHAVIOUR_METHODS
@@ -162,34 +171,37 @@ public class TransitionManager : MonoBehaviour
             else
                 objectTracker.DeactivateDataSet(dataset);
         }
+
     }
 
     private MixedRealityController.Mode GetMixedRealityMode()
     {
-        if (InAR)
+        if (InAR) // Stereo
         {
             return ModeConfig.isFullScreenMode ?
-                MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.VIEWER_AR;
+				MixedRealityController.Mode.VIEWER_AR : MixedRealityController.Mode.VIEWER_AR;
         }
-        else // in VR
+        else // in VR // Mono
         {
             return ModeConfig.isFullScreenMode ?
-                MixedRealityController.Mode.HANDHELD_VR : MixedRealityController.Mode.VIEWER_VR;
+				MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
         }
     }
 
 
     private void UpdateVisibleObjects()
     {
-        foreach (var go in VROnlyObjects)
+        foreach (var go in monoOnlyObjects)
         {
             go.SetActive(!InAR);
         }
 
-        foreach (var go in AROnlyObjects)
+        foreach (var go in stereoOnlyObjects)
         {
             go.SetActive(InAR);
         }
+
+
     }
 
     private void SetBlackMaskVisible(bool visible, float fadeFactor)

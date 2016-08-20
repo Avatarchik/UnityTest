@@ -58,62 +58,7 @@ public class PlayVideo : MonoBehaviour
 
         if (currentVideo != null)
         {
-            if (playFullscreen)
-            {
-                if (currentVideo.VideoPlayer.IsPlayableFullscreen())
-                {
-                    // Pause the video if it is currently playing
-                    currentVideo.VideoPlayer.Pause();
-
-                    // Seek the video to the beginning();
-                    currentVideo.VideoPlayer.SeekTo(0.0f);
-
-                    // Display the busy icon
-                    currentVideo.ShowBusyIcon();
-
-                    // Play the video full screen
-                    StartCoroutine( PlayFullscreenVideoAtEndOfFrame(currentVideo) );
-                }
-            }
-            else
-            {
-                if (currentVideo.VideoPlayer.IsPlayableOnTexture())
-                {
-                    // This video is playable on a texture, toggle playing/paused
-                    VideoPlayerHelper.MediaState state = currentVideo.VideoPlayer.GetStatus();
-                    if (state == VideoPlayerHelper.MediaState.PAUSED ||
-                        state == VideoPlayerHelper.MediaState.READY ||
-                        state == VideoPlayerHelper.MediaState.STOPPED)
-                    {
-                        // Pause other videos before playing this one
-                        PauseOtherVideos(currentVideo);
-
-                        // Play this video on texture where it left off
-                        currentVideo.VideoPlayer.Play(false, currentVideo.VideoPlayer.GetCurrentPosition());
-                    }
-                    else if (state == VideoPlayerHelper.MediaState.REACHED_END)
-                    {
-                        // Pause other videos before playing this one
-                        PauseOtherVideos(currentVideo);
-
-                        // Play this video from the beginning
-                        currentVideo.VideoPlayer.Play(false, 0);
-                    }
-                    else if (state == VideoPlayerHelper.MediaState.PLAYING)
-                    {
-                        // Video is already playing, pause it
-                        currentVideo.VideoPlayer.Pause();
-                    }
-                }
-                else
-                {
-                    // Display the busy icon
-                    currentVideo.ShowBusyIcon();
-
-                    // This video cannot be played on a texture, play it full screen
-                    StartCoroutine( PlayFullscreenVideoAtEndOfFrame(currentVideo) );
-                }
-            }
+			PlayTheVideo ();
         }
     }
     
@@ -170,7 +115,13 @@ public class PlayVideo : MonoBehaviour
 //        Screen.orientation = ScreenOrientation.Portrait;
 #endif //!UNITY_EDITOR
     }
-    #endregion //PUBLIC_METHODS
+  
+	public void PlayFocusedVideo(VideoPlaybackBehaviour vpb){
+		currentVideo = vpb;
+		PlayTheVideo ();
+	}
+
+	#endregion //PUBLIC_METHODS
 
 
     #region PRIVATE_METHODS
@@ -210,5 +161,68 @@ public class PlayVideo : MonoBehaviour
             }
         }
     }
+
+
+	internal void PlayTheVideo(){
+		if (currentVideo == null)
+			return;
+		
+		if (playFullscreen)
+		{
+			if (currentVideo.VideoPlayer.IsPlayableFullscreen())
+			{
+				// Pause the video if it is currently playing
+				currentVideo.VideoPlayer.Pause();
+
+				// Seek the video to the beginning();
+				currentVideo.VideoPlayer.SeekTo(0.0f);
+
+				// Display the busy icon
+				currentVideo.ShowBusyIcon();
+
+				// Play the video full screen
+				StartCoroutine( PlayFullscreenVideoAtEndOfFrame(currentVideo) );
+			}
+		}
+		else
+		{
+			if (currentVideo.VideoPlayer.IsPlayableOnTexture())
+			{
+				// This video is playable on a texture, toggle playing/paused
+				VideoPlayerHelper.MediaState state = currentVideo.VideoPlayer.GetStatus();
+				if (state == VideoPlayerHelper.MediaState.PAUSED ||
+					state == VideoPlayerHelper.MediaState.READY ||
+					state == VideoPlayerHelper.MediaState.STOPPED)
+				{
+					// Pause other videos before playing this one
+					PauseOtherVideos(currentVideo);
+
+					// Play this video on texture where it left off
+					currentVideo.VideoPlayer.Play(false, currentVideo.VideoPlayer.GetCurrentPosition());
+				}
+				else if (state == VideoPlayerHelper.MediaState.REACHED_END)
+				{
+					// Pause other videos before playing this one
+					PauseOtherVideos(currentVideo);
+
+					// Play this video from the beginning
+					currentVideo.VideoPlayer.Play(false, 1);
+				}
+				else if (state == VideoPlayerHelper.MediaState.PLAYING)
+				{
+					// Video is already playing, pause it
+					currentVideo.VideoPlayer.Pause();
+				}
+			}
+			else
+			{
+				// Display the busy icon
+				currentVideo.ShowBusyIcon();
+
+				// This video cannot be played on a texture, play it full screen
+				StartCoroutine( PlayFullscreenVideoAtEndOfFrame(currentVideo) );
+			}
+		}
+	}
     #endregion // PRIVATE_METHODS
 }

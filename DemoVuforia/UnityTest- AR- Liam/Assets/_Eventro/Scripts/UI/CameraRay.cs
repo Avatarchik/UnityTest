@@ -26,7 +26,6 @@ public class CameraRay : MonoBehaviour
 		foreach (var trigger in buttons)
         {
 			trigger.isFocused = hit.collider && (hit.collider.gameObject == trigger.gameObject);
-			//	print ("Ray cast hitted to the object" + hit.collider);
         }
     }
     #endregion // MONOBEHAVIOUR_METHODS

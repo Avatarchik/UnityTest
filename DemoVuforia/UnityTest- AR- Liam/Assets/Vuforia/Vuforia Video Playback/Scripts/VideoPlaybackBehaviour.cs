@@ -44,6 +44,11 @@ public class VideoPlaybackBehaviour : MonoBehaviour
     /// </summary>
     public bool m_autoPlay = false;
 
+	/// <summary>
+	/// It will let the video play in loop mode.
+	/// </summary>
+	public bool loop = false;
+
     #endregion // PUBLIC_MEMBER_VARIABLES
 
 
@@ -75,7 +80,7 @@ public class VideoPlaybackBehaviour : MonoBehaviour
 
     private GameObject mIconPlane = null;
     private bool mIconPlaneActive = false;
-
+	PlayVideo playVideo;
     #endregion // PRIVATE_MEMBER_VARIABLES
 
 
@@ -160,6 +165,8 @@ public class VideoPlaybackBehaviour : MonoBehaviour
 
         // Scale the icon
         ScaleIcon();
+		playVideo = GameObject.Find ("ARCamera").GetComponent <PlayVideo> ();
+
     }
 
     void OnRenderObject()
@@ -218,7 +225,15 @@ public class VideoPlaybackBehaviour : MonoBehaviour
                 mCurrentState = state;
             }
         }
+
+		if (loop) {
+		   VideoPlayerHelper.MediaState state = mVideoPlayer.UpdateVideoData();
+			if ( state == VideoPlayerHelper.MediaState.REACHED_END) {
+				playVideo.PlayTheVideo ();
+			}
+		}
     }
+
 
     private IEnumerator InitVideoPlayer()
     {
