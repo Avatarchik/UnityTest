@@ -17,6 +17,7 @@ namespace Eventro.Testapp.Controllers
 		private SwitchMode switchMode;
 		private TransactionModes transactionMode;
 		internal MixedRealityMode currentMixedRealityMode;
+		internal VideoPlaybackController videoPlayController;
 
 		#region Init
 
@@ -30,8 +31,9 @@ namespace Eventro.Testapp.Controllers
 			Instance = this;
 			switchMode = gameObject.GetComponent<SwitchMode> ();
 			transactionMode = gameObject.GetComponent<TransactionModes> ();
-			currentMixedRealityMode = MixedRealityMode.AR_STEREO;
-			SetMixedRealityMode (currentMixedRealityMode);	
+			videoPlayController = new VideoPlaybackController ();
+//			currentMixedRealityMode = MixedRealityMode.AR_STEREO;
+//			SetMixedRealityMode (currentMixedRealityMode);	
 		}
 
 		// Use this for initialization
@@ -66,14 +68,13 @@ namespace Eventro.Testapp.Controllers
 		#endregion
 
 		// Update is called once per frame
+
 		void Update ()
 		{
-			if (Input.GetKeyDown (KeyCode.E)) {
-				SetMixedRealityMode (MixedRealityMode.AR_MONO);	
-			} else if (Input.GetKeyDown (KeyCode.R)) {
-				SetMixedRealityMode (MixedRealityMode.AR_STEREO);	
-			}
+			
 		}
+
+		#region Obsolete Methods 
 
 		#region Set Mixed Reality Mode
 
@@ -116,5 +117,17 @@ namespace Eventro.Testapp.Controllers
 
 		#endregion
 	
+		#endregion
+
+		#region Video Player Controller
+		internal void PlayVideoOf(string objName){
+			videoPlayController.PlayVideoOf (objName);
+		}
+
+		internal void PauseCurrentVideo(){
+			videoPlayController.PauseCurrentVideo();
+		}
+		#endregion
+
 	}
 }

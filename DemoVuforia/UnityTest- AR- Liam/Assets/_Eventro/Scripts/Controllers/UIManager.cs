@@ -13,7 +13,6 @@ namespace Eventro.Testapp.Controllers
 
 		public static UIManager Instance;
 		private bool modeToggle = false;
-		private PlayVideo vuforiaPlayVideo;
 
 		#region Init
 
@@ -29,7 +28,6 @@ namespace Eventro.Testapp.Controllers
 		void InitStart ()
 		{
 			Instance = this;
-			vuforiaPlayVideo = GameObject.Find ("ARCamera").GetComponent <PlayVideo> ();
 		}
 
 		void OnEnable ()
@@ -67,10 +65,6 @@ namespace Eventro.Testapp.Controllers
 		// Update is called once per frame
 		void Update ()
 		{
-			if (Input.GetKeyDown (KeyCode.Y)) {
-				PlayVideoOf ("TransformerVideo");
-			}
-
 			#region Back Button
 			if (Input.GetKeyDown (KeyCode.Escape)) {
 				Application.Quit ();
@@ -86,7 +80,7 @@ namespace Eventro.Testapp.Controllers
 			case "TransformerVideo":
 				// Play transformer video
 				print ("Play transformer video");
-				PlayVideoOf (objName);
+				GameManager.Instance.PlayVideoOf (objName);
 				break;
 
 		
@@ -94,14 +88,6 @@ namespace Eventro.Testapp.Controllers
 		}
 
 		#endregion
-
-		/// <summary>
-		/// Play the video which the pointer has focused.
-		/// </summary>
-		private void PlayVideoOf(string focusedObject){
-			VideoPlaybackBehaviour vpb;
-			vpb = GameObject.Find (focusedObject).GetComponentInChildren<VideoPlaybackBehaviour> ();
-			vuforiaPlayVideo.PlayFocusedVideo (vpb);
-		}
+	
 	}
 }

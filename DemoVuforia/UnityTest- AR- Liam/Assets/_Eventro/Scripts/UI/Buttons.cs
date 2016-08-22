@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 using Eventro.Testapp.Enums;
+using Eventro.Testapp.Controllers;
 
 namespace Eventro.Testapp.UI
 {
@@ -143,6 +144,7 @@ namespace Eventro.Testapp.UI
 
 		private void VideoButtonNonFocused(){
 		 // Stop Video
+			GameManager.Instance.PauseCurrentVideo();
 		}
 		#endregion
 	}

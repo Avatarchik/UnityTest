@@ -20,6 +20,7 @@ public class SwitchMode : MonoBehaviour {
 
 	private bool toggle = false;
 	public void SwitchM(){
+		tm.runUpdate = true;
 		if (!toggle) { // Mono
 			SwitchMono();
 		} else { // Stereo

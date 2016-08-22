@@ -162,6 +162,14 @@ public class PlayVideo : MonoBehaviour
         }
     }
 
+	internal void PauseCurrentPlayingVideo(){
+	
+		if (currentVideo == null) {
+			return;
+		}
+		PauseOtherVideos (currentVideo);
+	}
+
 
 	internal void PlayTheVideo(){
 		if (currentVideo == null)
