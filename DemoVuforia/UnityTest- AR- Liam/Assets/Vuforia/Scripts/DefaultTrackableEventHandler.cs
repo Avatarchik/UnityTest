@@ -84,9 +84,9 @@ namespace Vuforia
             {
                 component.enabled = true;
             }
-			TrackerState (true);
+//			TrackerState (true);
 
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+			Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found" +  "Default");
         }
 
 
@@ -106,8 +106,8 @@ namespace Vuforia
             {
                 component.enabled = false;
             }
-			TrackerState (false);
-            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+//			TrackerState (false);
+            Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost" + "Default");
         }
 
         #endregion // PRIVATE_METHODS

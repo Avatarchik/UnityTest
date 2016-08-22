@@ -97,7 +97,8 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
             component.enabled = true;
         }
 
-        Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
+        Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found" + "Trackable");
+		TrackerState (true);
         // Optionally play the video automatically when the target is found
 
         VideoPlaybackBehaviour video = GetComponentInChildren<VideoPlaybackBehaviour>();
@@ -148,7 +149,8 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
             component.enabled = false;
         }
 
-        Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost");
+		Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " lost" +"Trackable");
+		TrackerState (false);
 
         mLostTracking = true;
         mSecondsSinceLost = 0;

@@ -42,9 +42,11 @@ public class TrackingObjectConroller : MonoBehaviour
 	private void Delegate (bool state)
 	{
 		if (state) {
-			Vuforia.DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
+//			Vuforia.DefaultTrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
+			TrackableEventHandler.TrackerState += DefaultTrackableEventHandler_TrackerState;
 		} else {
-			Vuforia.DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
+//			Vuforia.DefaultTrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
+			TrackableEventHandler.TrackerState -= DefaultTrackableEventHandler_TrackerState;
 		}
 	}
 
@@ -55,6 +57,7 @@ public class TrackingObjectConroller : MonoBehaviour
 	void DefaultTrackableEventHandler_TrackerState (bool obj)
 	{
 		if (obj) { // Object Found
+			print ("Tracker found");
 			ResetOldCube ();
 			foundStatus = true;
 			HandleCube ();
@@ -74,6 +77,7 @@ public class TrackingObjectConroller : MonoBehaviour
 
 
 		if (moveCube) {
+			print ("Cube upwards");
 			instantiatedCube.transform.Translate (Vector3.up * speed * Time.deltaTime);
 		} 
 	}
@@ -87,35 +91,49 @@ public class TrackingObjectConroller : MonoBehaviour
 	private void ResetOldCube(){ // Tracker Found
 		// TODO: IF the old cube is moving on then we need to stop that
 		// TODO: Delete the previous instantiated cube 
+		print ("Restting cube - IN");
+
 
 		// Stop old cube moving
 		moveCube = false;
 
 		//
 		if (instantiatedCube) Destroy (instantiatedCube);
+
+		print ("Restting cube - OUT");
+
 	}
 
 	private void HandleCube () // Tracker Found
 	{
+		print ("Handle cube - IN");
 		// TODO: MAKE A NEW CUBE
 		// TODO: PROVIDE THE SAME POS AS THE REFERENCE CUBE
 		// TODO: NOW DISABLE THE ORIGINAL ONE 
 		// TODO: MOVE THE INSTANTIATED CUBE UPWORDS
 		// TODO: AFTER 4 SECONDS (OR SO) PLAY THE VIDEO 
 
+
 		// Instantie the duplicate cube which need to be replace with the original one
 		instantiatedCube = Instantiate <GameObject> (dublicateCube);
 
+		print ("Instantiate cube " + instantiatedCube);
 		// Provide the postiton of the original ( tracker cube's the instantiated cube 
 		instantiatedCube.transform.position = trackerCube.transform.position;
 
+		print ("Setting Cube pos " + instantiatedCube.transform.position);
 		// Get the refernce of mediaConrtoller
 		meadiaCntrl = instantiatedCube.GetComponent<MediaPlayerCtrl>();
+
+		print ("meadiaCntrl ref " + meadiaCntrl);
 
 		// Now set disable the orignal one  ( Make it tru when the object is not on scree)
 		trackerCube.SetActive (false);
 
+		print ("Disable orinal one ");
+
 		moveCube = true;
+		print ("Start move cube");
 		StartCoroutine (PlayMovie());
 	}
 
@@ -123,6 +141,8 @@ public class TrackingObjectConroller : MonoBehaviour
 	{
 		// Wait for the seconds and play video
 		yield return new WaitForSeconds (3);
+
+		print ("Start video");
 
 		// Stop the movemenet of the cube
 		moveCube = false;
@@ -134,6 +154,8 @@ public class TrackingObjectConroller : MonoBehaviour
 
 	private void  ReEnableCube ()// Tracker Lost
 	{
+		print ("Enabling cube video");
+
 		//As the tracker get lost.. It can appear again so you need to put it back.
 		trackerCube.SetActive (true);
 	}
