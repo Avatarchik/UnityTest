@@ -3,6 +3,7 @@
  * ==============================================================================*/
 using UnityEngine;
 using Vuforia;
+using System;
 
 /// <summary>
 /// A custom handler that implements the ITrackableEventHandler interface.
@@ -15,6 +16,8 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
     private bool mLostTracking;
     private float mSecondsSinceLost;
     #endregion // PRIVATE_MEMBERS
+
+	public static event Action <bool> TrackerState;
 
 
     #region MONOBEHAVIOUR_METHODS
@@ -95,7 +98,6 @@ public class TrackableEventHandler : MonoBehaviour, ITrackableEventHandler
         }
 
         Debug.Log("Trackable " + mTrackableBehaviour.TrackableName + " found");
-
         // Optionally play the video automatically when the target is found
 
         VideoPlaybackBehaviour video = GetComponentInChildren<VideoPlaybackBehaviour>();

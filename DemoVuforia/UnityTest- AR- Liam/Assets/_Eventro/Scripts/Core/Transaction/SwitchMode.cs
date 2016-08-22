@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using Eventro.Testapp.Enums;
 public class SwitchMode : MonoBehaviour {
 
 	public TransitionManager tm;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -19,7 +20,7 @@ public class SwitchMode : MonoBehaviour {
 	}
 
 	private bool toggle = false;
-	public void SwitchM(){
+	public void SwitchM(){ // Switch b/w modes 
 		tm.runUpdate = true;
 		if (!toggle) { // Mono
 			SwitchMono();
@@ -27,6 +28,10 @@ public class SwitchMode : MonoBehaviour {
 			SwitchStereo();
 		}
 		toggle = !toggle;
+	}
+		
+	public void SwitchScnes(string scneName){
+		UnityEngine.SceneManagement.SceneManager.LoadScene (scneName.ToString());
 	}
 
 }
