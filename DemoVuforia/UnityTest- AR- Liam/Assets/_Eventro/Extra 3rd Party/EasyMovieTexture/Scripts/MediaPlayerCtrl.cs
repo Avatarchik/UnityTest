@@ -103,10 +103,6 @@ public class MediaPlayerCtrl : MonoBehaviour {
 	
 	void Awake(){
 		
-
-
-
-		
 		if( SystemInfo.deviceModel.Contains("rockchip"))
 		{
 			m_bSupportRockchip = true;
