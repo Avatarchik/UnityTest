@@ -31,6 +31,7 @@ public class SwitchMode : MonoBehaviour {
 	}
 		
 	public void SwitchScnes(string scneName){
+		print ("Switch scneds "  + scneName );
 		UnityEngine.SceneManagement.SceneManager.LoadScene (scneName.ToString());
 	}
 

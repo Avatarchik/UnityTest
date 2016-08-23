@@ -59,7 +59,6 @@ public class TrackingObjectConroller : MonoBehaviour
 	void DefaultTrackableEventHandler_TrackerState (bool obj)
 	{
 		if (obj) { // Object Found
-			print ("Tracker found");
 			ResetOldCube ();
 			foundStatus = true;
 			HandleCube ();
@@ -93,32 +92,33 @@ public class TrackingObjectConroller : MonoBehaviour
 		// Stop old cube moving
 		moveCube = false;
 
-		//
-		if (instantiatedCube)
-			Destroy (instantiatedCube);
-
 		if (mediaCnrtl) {
-			mediaCnrtl.Pause ();
+			mediaCnrtl.Stop ();
 			mediaCnrtl.UnLoad ();
 		}
+
+//		if (instantiatedCube)
+//			Destroy (instantiatedCube);
+		
 	}
 
 	private void HandleCube () // Tracker Found
 	{
-		// TODO: MAKE A NEW CUBE
-		// TODO: PROVIDE THE SAME POS AS THE REFERENCE CUBE
-		// TODO: NOW DISABLE THE ORIGINAL ONE 
-		// TODO: MOVE THE INSTANTIATED CUBE UPWORDS
-		// TODO: AFTER 4 SECONDS (OR SO) PLAY THE VIDEO 
+		// 1. MAKE A NEW CUBE
+		// 2. PROVIDE THE SAME POS AS THE REFERENCE CUBE
+		// 3. NOW DISABLE THE ORIGINAL ONE 
+		// 4. MOVE THE INSTANTIATED CUBE UPWORDS
+		// 5. AFTER 4 SECONDS (OR SO) PLAY THE VIDEO 
 
 		// Instantie the duplicate cube which need to be replace with the original one
-		instantiatedCube = Instantiate <GameObject> (dublicateCube);
-
+		if (!instantiatedCube) {
+			instantiatedCube = Instantiate <GameObject> (dublicateCube);
+			// Get the refernce of mediaConrtoller
+			mediaCnrtl = instantiatedCube.GetComponent<MediaPlayerCtrl> ();
+		}	
+		
 		// Provide the postiton of the original ( tracker cube's the instantiated cube 
-		instantiatedCube.transform.position = trackerCube.transform.position;
-
-		// Get the refernce of mediaConrtoller
-		mediaCnrtl = instantiatedCube.GetComponent<MediaPlayerCtrl> ();
+		RepositionInstantiatedCube ();
 
 		// Now set disable the orignal one  ( Make it tru when the object is not on scree)
 		trackerCube.SetActive (false);
@@ -141,22 +141,21 @@ public class TrackingObjectConroller : MonoBehaviour
 
 		// Let him know the name of the video to be play
 		mediaCnrtl.Load (Constants.VIDEO_NAME);
-		StartCoroutine (Delay ());
+		StartCoroutine (PlayDelay ());
 	}
 
-	IEnumerator Delay ()
+	IEnumerator PlayDelay ()
 	{
 		yield return new WaitForSeconds (0.5f);
 		mediaCnrtl.Play ();
 	}
-
-	IEnumerator DisableCube ()
+		
+	private void RepositionInstantiatedCube ()
 	{
-		yield return new WaitForSeconds (2f);
-		trackerCube.GetComponent<MeshRenderer> ().enabled = false;
+		instantiatedCube.transform.position = trackerCube.transform.position;
+		Material mat = Resources.Load<Material> ("VRFocused");
+		instantiatedCube.GetComponent<Renderer> ().material = mat;
 	}
-
-
 
 	private void  ReEnableCube ()// Tracker Lost
 	{
