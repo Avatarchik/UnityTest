@@ -17,6 +17,7 @@ public class TrackingObjectConroller : MonoBehaviour
 
 	public Material videoMaterial;
 
+	private string videoMaterialName = "";
 	private bool foundStatus = false, moveCube = false;
 	private GameObject instantiatedCube;
 	private MediaPlayerCtrl mediaCnrtl;
@@ -27,7 +28,7 @@ public class TrackingObjectConroller : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	
+		videoMaterialName = videoMaterial.name;
 	}
 
 	private void OnEnable ()
@@ -74,8 +75,7 @@ public class TrackingObjectConroller : MonoBehaviour
 	void Update ()
 	{
 		if (moveCube) {
-			print ("Cube upwards");
-			instantiatedCube.transform.Translate (Vector3.up * speed * Time.deltaTime);
+			instantiatedCube.transform.Translate (Vector3.up * speed * Time.deltaTime * 1.5f);
 		} 
 	}
 
@@ -89,8 +89,6 @@ public class TrackingObjectConroller : MonoBehaviour
 	{ // Tracker Found
 		// TODO: IF the old cube is moving on then we need to stop that
 		// TODO: Delete the previous instantiated cube 
-		print ("Restting cube - IN");
-
 
 		// Stop old cube moving
 		moveCube = false;
@@ -99,17 +97,14 @@ public class TrackingObjectConroller : MonoBehaviour
 		if (instantiatedCube)
 			Destroy (instantiatedCube);
 
-		if (mediaCnrtl)
+		if (mediaCnrtl) {
+			mediaCnrtl.Pause ();
 			mediaCnrtl.UnLoad ();
-
-
-		print ("Restting cube - OUT");
-
+		}
 	}
 
 	private void HandleCube () // Tracker Found
 	{
-		print ("Handle cube - IN");
 		// TODO: MAKE A NEW CUBE
 		// TODO: PROVIDE THE SAME POS AS THE REFERENCE CUBE
 		// TODO: NOW DISABLE THE ORIGINAL ONE 
@@ -119,25 +114,16 @@ public class TrackingObjectConroller : MonoBehaviour
 		// Instantie the duplicate cube which need to be replace with the original one
 		instantiatedCube = Instantiate <GameObject> (dublicateCube);
 
-		print ("Instantiate cube " + instantiatedCube);
 		// Provide the postiton of the original ( tracker cube's the instantiated cube 
 		instantiatedCube.transform.position = trackerCube.transform.position;
-
-		print ("Setting Cube pos " + instantiatedCube.transform.position);
 
 		// Get the refernce of mediaConrtoller
 		mediaCnrtl = instantiatedCube.GetComponent<MediaPlayerCtrl> ();
 
-		print ("meadiaCntrl ref " + mediaCnrtl);
-
-
 		// Now set disable the orignal one  ( Make it tru when the object is not on scree)
 		trackerCube.SetActive (false);
 
-		print ("Disable orinal one ");
-
 		moveCube = true;
-		print ("Start move cube");
 		StartCoroutine (PlayMovie ());
 	}
 
@@ -146,13 +132,12 @@ public class TrackingObjectConroller : MonoBehaviour
 		// Wait for the seconds and play video
 		yield return new WaitForSeconds (3);
 
-		print ("Start video");
-
 		// Stop the movemenet of the cube
 		moveCube = false;
 
 		//Setting the video maetrial to cube
-		instantiatedCube.GetComponent<Renderer> ().material = videoMaterial;
+		if (instantiatedCube.GetComponent<Renderer> ().material.name.ToString () != videoMaterialName.ToString ())
+			instantiatedCube.GetComponent<Renderer> ().material = videoMaterial;
 
 		// Let him know the name of the video to be play
 		mediaCnrtl.Load (Constants.VIDEO_NAME);
@@ -165,14 +150,17 @@ public class TrackingObjectConroller : MonoBehaviour
 		mediaCnrtl.Play ();
 	}
 
+	IEnumerator DisableCube ()
+	{
+		yield return new WaitForSeconds (2f);
+		trackerCube.GetComponent<MeshRenderer> ().enabled = false;
+	}
+
+
 
 	private void  ReEnableCube ()// Tracker Lost
 	{
-		print ("Enabling cube video");
-
 		//As the tracker get lost.. It can appear again so you need to put it back.
-		trackerCube.SetActive (true);
-		if (mediaCnrtl)
-			mediaCnrtl.Pause ();
+		trackerCube.SetActive (false);
 	}
 }
