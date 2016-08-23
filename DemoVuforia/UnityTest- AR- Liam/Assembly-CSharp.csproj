@@ -129,6 +129,7 @@
      <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\SwitchMode.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Core\Transaction\TransactionModes.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Enums\Enums.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\GyroRotate.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\Buttons.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\CameraRay.cs" />
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />

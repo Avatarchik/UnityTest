@@ -2,7 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Assets/Vuforia/Scripts/DeviceTrackerBehaviour.cs" Line="14" Column="54" />
+      <File FileName="Assets/_Eventro/Scripts/Controllers/UIManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Eventro/Scripts/Core/Transaction/SwitchMode.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Eventro/Scripts/Controllers/TrackingObjectConroller.cs" Line="1" Column="1" />
+      <File FileName="Assets/_Eventro/Scripts/Common/Constants.cs" Line="1" Column="1" />
+      <File FileName="Assets/Vuforia/Scripts/DefaultTrackableEventHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/Vuforia/Scripts/TrackableEventHandler.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

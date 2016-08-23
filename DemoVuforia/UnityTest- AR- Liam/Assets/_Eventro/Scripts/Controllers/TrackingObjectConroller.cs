@@ -7,7 +7,7 @@ public class TrackingObjectConroller : MonoBehaviour
 
 	public float speed = 2;
 
-	[Tooltip ("Place the prefab of the cube from the Project vide" +
+	[Tooltip ("Place the prefab of the cube from the 'Project' view" +
 	"It will get replaced with the tracked cube ")] 
 	public GameObject dublicateCube;
 
@@ -15,10 +15,11 @@ public class TrackingObjectConroller : MonoBehaviour
 	"Duplciate cube will get replaced with this cube's position ")] 
 	public GameObject trackerCube;
 
+	public Material videoMaterial;
 
 	private bool foundStatus = false, moveCube = false;
 	private GameObject instantiatedCube;
-	private MediaPlayerCtrl meadiaCntrl;
+	private MediaPlayerCtrl mediaCnrtl;
 
 
 	#region Init
@@ -72,10 +73,6 @@ public class TrackingObjectConroller : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Input.GetKeyDown(KeyCode.Y))
-			DefaultTrackableEventHandler_TrackerState (true);
-
-
 		if (moveCube) {
 			print ("Cube upwards");
 			instantiatedCube.transform.Translate (Vector3.up * speed * Time.deltaTime);
@@ -88,7 +85,8 @@ public class TrackingObjectConroller : MonoBehaviour
 	* 2 Old cube was moving but in between the traker agian come 
 	* 3 The old cube was playing video (i.e. All previous steps of previous tracking are done)
 	*/
-	private void ResetOldCube(){ // Tracker Found
+	private void ResetOldCube ()
+	{ // Tracker Found
 		// TODO: IF the old cube is moving on then we need to stop that
 		// TODO: Delete the previous instantiated cube 
 		print ("Restting cube - IN");
@@ -98,7 +96,12 @@ public class TrackingObjectConroller : MonoBehaviour
 		moveCube = false;
 
 		//
-		if (instantiatedCube) Destroy (instantiatedCube);
+		if (instantiatedCube)
+			Destroy (instantiatedCube);
+
+		if (mediaCnrtl)
+			mediaCnrtl.UnLoad ();
+
 
 		print ("Restting cube - OUT");
 
@@ -113,7 +116,6 @@ public class TrackingObjectConroller : MonoBehaviour
 		// TODO: MOVE THE INSTANTIATED CUBE UPWORDS
 		// TODO: AFTER 4 SECONDS (OR SO) PLAY THE VIDEO 
 
-
 		// Instantie the duplicate cube which need to be replace with the original one
 		instantiatedCube = Instantiate <GameObject> (dublicateCube);
 
@@ -122,10 +124,12 @@ public class TrackingObjectConroller : MonoBehaviour
 		instantiatedCube.transform.position = trackerCube.transform.position;
 
 		print ("Setting Cube pos " + instantiatedCube.transform.position);
-		// Get the refernce of mediaConrtoller
-		meadiaCntrl = instantiatedCube.GetComponent<MediaPlayerCtrl>();
 
-		print ("meadiaCntrl ref " + meadiaCntrl);
+		// Get the refernce of mediaConrtoller
+		mediaCnrtl = instantiatedCube.GetComponent<MediaPlayerCtrl> ();
+
+		print ("meadiaCntrl ref " + mediaCnrtl);
+
 
 		// Now set disable the orignal one  ( Make it tru when the object is not on scree)
 		trackerCube.SetActive (false);
@@ -134,7 +138,7 @@ public class TrackingObjectConroller : MonoBehaviour
 
 		moveCube = true;
 		print ("Start move cube");
-		StartCoroutine (PlayMovie());
+		StartCoroutine (PlayMovie ());
 	}
 
 	private IEnumerator PlayMovie ()
@@ -147,8 +151,18 @@ public class TrackingObjectConroller : MonoBehaviour
 		// Stop the movemenet of the cube
 		moveCube = false;
 
+		//Setting the video maetrial to cube
+		instantiatedCube.GetComponent<Renderer> ().material = videoMaterial;
+
 		// Let him know the name of the video to be play
-		meadiaCntrl.Load (Constants.VIDEO_NAME);
+		mediaCnrtl.Load (Constants.VIDEO_NAME);
+		StartCoroutine (Delay ());
+	}
+
+	IEnumerator Delay ()
+	{
+		yield return new WaitForSeconds (0.5f);
+		mediaCnrtl.Play ();
 	}
 
 
@@ -158,5 +172,7 @@ public class TrackingObjectConroller : MonoBehaviour
 
 		//As the tracker get lost.. It can appear again so you need to put it back.
 		trackerCube.SetActive (true);
+		if (mediaCnrtl)
+			mediaCnrtl.Pause ();
 	}
 }
