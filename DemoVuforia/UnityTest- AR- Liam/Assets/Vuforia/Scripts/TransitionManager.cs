@@ -177,7 +177,7 @@ public class TransitionManager : MonoBehaviour
 	{
 		if (InAR) { // Stereo
 			return ModeConfig.isFullScreenMode ?
-				MixedRealityController.Mode.VIEWER_AR : MixedRealityController.Mode.VIEWER_AR;
+				MixedRealityController.Mode.ROTATIONAL_VIEWER_AR : MixedRealityController.Mode.ROTATIONAL_VIEWER_AR;
 		} else { // in VR // Mono
 			return ModeConfig.isFullScreenMode ?
 				MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
