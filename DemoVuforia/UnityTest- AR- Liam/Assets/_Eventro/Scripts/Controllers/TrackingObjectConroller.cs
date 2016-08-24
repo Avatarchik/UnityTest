@@ -74,7 +74,7 @@ public class TrackingObjectConroller : MonoBehaviour
 	void Update ()
 	{
 		if (moveCube) {
-			instantiatedCube.transform.Translate (Vector3.up * speed * Time.deltaTime * 1.5f);
+			instantiatedCube.transform.Translate (Vector3.forward * speed * Time.deltaTime * 1.5f);
 		} 
 	}
 
