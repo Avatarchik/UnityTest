@@ -120,6 +120,7 @@
      <Compile Include="Assets\_Eventro\Extra 3rd Party\EasyMovieTexture\Scripts\VideoCopyTexture.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Common\Constants.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\GameManager.cs" />
+     <Compile Include="Assets\_Eventro\Scripts\Controllers\ObjectPanController.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\TrackingObjectConroller.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\UIManager.cs" />
      <Compile Include="Assets\_Eventro\Scripts\Controllers\VideoPlaybackController.cs" />

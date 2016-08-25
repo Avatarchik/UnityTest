@@ -180,7 +180,7 @@ public class TransitionManager : MonoBehaviour
 				MixedRealityController.Mode.ROTATIONAL_VIEWER_AR : MixedRealityController.Mode.ROTATIONAL_VIEWER_AR;
 		} else { // in VR // Mono
 			return ModeConfig.isFullScreenMode ?
-				MixedRealityController.Mode.HANDHELD_AR : MixedRealityController.Mode.HANDHELD_AR;
+				MixedRealityController.Mode.ROTATIONAL_HANDHELD_AR : MixedRealityController.Mode.ROTATIONAL_HANDHELD_AR;
 		}
 	}
 

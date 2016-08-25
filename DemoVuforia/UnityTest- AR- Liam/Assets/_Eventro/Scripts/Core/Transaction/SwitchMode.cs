@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Eventro.Testapp.Enums;
+using Eventro.Testapp.Controllers;
+
 public class SwitchMode : MonoBehaviour {
 
 	public TransitionManager tm;
@@ -11,11 +13,15 @@ public class SwitchMode : MonoBehaviour {
 	}
 
 	internal void SwitchStereo (){
+		if (GameManager.Instance)
+			GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_STEREO); 
 		tm.mTransitionCursor = 0; 
 	}
 
 
 	internal void SwitchMono (){
+		if (GameManager.Instance)
+			GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_MONO); 
 		tm.mTransitionCursor = 1; 
 	}
 

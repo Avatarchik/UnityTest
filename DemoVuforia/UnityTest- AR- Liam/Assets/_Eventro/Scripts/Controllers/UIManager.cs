@@ -89,5 +89,12 @@ namespace Eventro.Testapp.Controllers
 
 		#endregion
 	
+		#region Done Button
+		// This button will enable the tracking state
+		public void EnableTracking(){
+			GameManager.Instance.TargetTracking (true);
+		}
+		#endregion
+
 	}
 }
