@@ -22,7 +22,8 @@ namespace Eventro.Testapp.Controllers
 
 		private SwitchMode switchMode;
 		private TransactionModes transactionMode;
-		internal MixedRealityMode currentMixedRealityMode;
+		private ObjectPanController objectPanController;
+
 		internal VideoPlaybackController videoPlayController;
 		internal bool isTrakingEnabled = true;
 
@@ -51,6 +52,7 @@ namespace Eventro.Testapp.Controllers
 
 		private void InitStart ()
 		{
+			objectPanController = gameObject.GetComponent<ObjectPanController> ();
 		}
 
 		private void OnEnable ()
@@ -83,34 +85,6 @@ namespace Eventro.Testapp.Controllers
 
 		#region Obsolete Methods 
 
-		#region Set Mixed Reality Mode
-
-		internal void SetMixedRealityMode (MixedRealityMode mode)
-		{
-			transactionMode.SwitchMode (mode);	
-		}
-
-		#endregion
-
-		#region Set Game Mode
-
-		internal void SetGameMode (GameMode mode)
-		{
-			switch (mode) {
-			case GameMode.CubeTest: //Stereo
-				
-				break;
-
-			case GameMode.VideoPlayerTest: // Mono
-				
-				break;
-			default:
-				break;
-			}
-		}
-
-		#endregion
-
 		#region Object Font And Lost
 
 		void DefaultTrackableEventHandler_TrackerState (bool obj)
@@ -125,6 +99,7 @@ namespace Eventro.Testapp.Controllers
 		#endregion
 	
 		#endregion
+
 
 		#region Video Player Controller
 		internal void PlayVideoOf(string objName){
@@ -157,8 +132,26 @@ namespace Eventro.Testapp.Controllers
 			doneButton.SetActive (!state);
 		}
 		#endregion
-
 	
+		#region Cube Movement Controls
+		internal void CubeMovementControls( bool state){
+			if (panAbleObject) {
+				UIManager.Instance.CubeMovementControls (state);
+			}
+		}
+		#endregion
+
+		#region SetObject Pan
+		GameObject panAbleObject; 
+		internal void SetObjectToPan(GameObject go){
+			panAbleObject = go;
+			objectPanController.objectToBePan = go;
+			objectPanController.SetCubePos ();
+		}
+		internal GameObject GetObjectToPan(){
+			return panAbleObject;
+		}
+		#endregion
 
 	}
 }

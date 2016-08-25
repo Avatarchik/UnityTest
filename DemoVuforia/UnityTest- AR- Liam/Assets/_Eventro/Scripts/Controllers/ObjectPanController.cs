@@ -16,19 +16,36 @@ public class ObjectPanController : MonoBehaviour
 
 	private RotationClicked rotation;
 	private float speed = 2;
+	[HideInInspector]
 	public GameObject objectToBePan;
+
+	Vector3 updatedPos;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
+	}
+
+	internal void SetCubePos(){
+		updatedPos = objectToBePan.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		Rotate ();
+		Zoom ();
 	}
+
+	private void Zoom ()
+	{
+		print ("Zoominggggg");
+		objectToBePan.transform.position = Vector3.MoveTowards (
+			objectToBePan.transform.position,
+			updatedPos,
+			20 * Time.deltaTime);
+	}
+
 
 	void Rotate ()
 	{
@@ -109,12 +126,14 @@ public class ObjectPanController : MonoBehaviour
 
 	public void ZoomPlus ()
 	{
-
+		print ("Zoom Plus");
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -100);
 	}
 
 	public void ZoomMinus ()
 	{
-
+		print ("Zoom Minus");
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 100);
 	}
 
 }

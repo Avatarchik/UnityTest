@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Eventro.Testapp.Enums;
 using Eventro.Testapp.Controllers;
+using Eventro.Testapp.Common;
 using Vuforia;
 
 public class TransactionModes : MonoBehaviour
@@ -21,7 +22,7 @@ public class TransactionModes : MonoBehaviour
 	void Start ()
 	{
 		switchM = gameObject.GetComponent<SwitchMode> ();
-		LoadAssetsOf (GameManager.Instance.currentMixedRealityMode);
+		LoadAssetsOf (Constants.CURRENT_MIXED_REALITY_MODE);
 	}
 
 	#region Switch Mixed Reality mode with Animation

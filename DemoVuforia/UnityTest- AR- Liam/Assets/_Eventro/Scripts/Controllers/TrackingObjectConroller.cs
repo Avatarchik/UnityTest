@@ -84,9 +84,8 @@ namespace Eventro.Testapp.Controllers
 //					Vuforia.DigitalEyewearBehaviour.Instance.PrimaryCamera.transform.position,1);
 			} 
 		}
-
-
-		/* THis method will handle following casees. i.e. if the user:
+			
+	/* THis method will handle following casees. i.e. if the user:
 	* 1 first time tracking
 	* 2 Old cube was moving but in between the traker agian come 
 	* 3 The old cube was playing video (i.e. All previous steps of previous tracking are done)
@@ -126,6 +125,7 @@ namespace Eventro.Testapp.Controllers
 				instantiatedCube = Instantiate <GameObject> (dublicateCube);
 				// Get the refernce of mediaConrtoller
 				mediaCnrtl = instantiatedCube.GetComponent<MediaPlayerCtrl> ();
+				GameManager.Instance.SetObjectToPan (instantiatedCube);
 			}	
 
 			// Disable Tracker And Enable Done Button 
@@ -176,7 +176,6 @@ namespace Eventro.Testapp.Controllers
 			//As the tracker get lost.. It can appear again so you need to put it back.
 			trackerCube.SetActive (false);
 		}
-
-
+	
 	}
 }

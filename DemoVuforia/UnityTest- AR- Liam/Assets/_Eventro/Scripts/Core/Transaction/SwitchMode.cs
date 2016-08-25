@@ -2,43 +2,58 @@
 using System.Collections;
 using Eventro.Testapp.Enums;
 using Eventro.Testapp.Controllers;
+using Eventro.Testapp.Common;
 
-public class SwitchMode : MonoBehaviour {
+public class SwitchMode : MonoBehaviour
+{
 
 	public TransitionManager tm;
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 	
 	}
 
-	internal void SwitchStereo (){
-		if (GameManager.Instance)
-			GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_STEREO); 
+	internal void SwitchStereo ()
+	{
+		Constants.CURRENT_MIXED_REALITY_MODE = MixedRealityMode.AR_STEREO; 
+		if (GameManager.Instance && (Constants.CURRENT_GAME_MODE == GameMode.CubeTest))
+			GameManager.Instance.CubeMovementControls (false);
 		tm.mTransitionCursor = 0; 
 	}
 
 
-	internal void SwitchMono (){
-		if (GameManager.Instance)
-			GameManager.Instance.SetMixedRealityMode (MixedRealityMode.AR_MONO); 
+	internal void SwitchMono ()
+	{
+		Constants.CURRENT_MIXED_REALITY_MODE = MixedRealityMode.AR_MONO; 
+		if (Constants.CURRENT_GAME_MODE == GameMode.CubeTest)
+			GameManager.Instance.CubeMovementControls (true);
 		tm.mTransitionCursor = 1; 
 	}
 
 	private bool toggle = false;
-	public void SwitchM(){ // Switch b/w modes 
+
+	// Switch b/w Mixed Reality modes
+	public void SwitchM ()
+	{ 
 		tm.runUpdate = true;
 		if (!toggle) { // Mono
-			SwitchMono();
+			SwitchMono ();
 		} else { // Stereo
-			SwitchStereo();
+			SwitchStereo ();
 		}
 		toggle = !toggle;
 	}
-		
-	public void SwitchScnes(string scneName){
-		print ("Switch scneds "  + scneName );
-		UnityEngine.SceneManagement.SceneManager.LoadScene (scneName.ToString());
+
+	public void SwitchScnes (string scneName)
+	{
+		if (scneName == Constants.SCENE_NAME_1)
+			Constants.CURRENT_GAME_MODE = GameMode.CubeTest;
+		else if (scneName == Constants.SCENE_NAME_2)
+			Constants.CURRENT_GAME_MODE = GameMode.VideoPlayerTest;
+
+		UnityEngine.SceneManagement.SceneManager.LoadScene (scneName.ToString ());
 	}
 
 }

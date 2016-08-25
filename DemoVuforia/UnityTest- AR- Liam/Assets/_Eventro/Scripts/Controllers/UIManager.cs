@@ -14,6 +14,9 @@ namespace Eventro.Testapp.Controllers
 		public static UIManager Instance;
 		private bool modeToggle = false;
 
+		[SerializeField]
+		private GameObject cubeMovementControls;
+
 		#region Init
 
 		void Awake ()
@@ -95,6 +98,13 @@ namespace Eventro.Testapp.Controllers
 			GameManager.Instance.TargetTracking (true);
 		}
 		#endregion
+
+		#region Cube Movement Controls
+		internal void CubeMovementControls( bool state){
+			cubeMovementControls.SetActive (state);
+		}
+		#endregion
+
 
 	}
 }
