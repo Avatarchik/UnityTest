@@ -16,6 +16,7 @@ public class ObjectPanController : MonoBehaviour
 
 	private RotationClicked rotation;
 	private float speed = 2;
+	private bool canZoom = false;
 	[HideInInspector]
 	public GameObject objectToBePan;
 
@@ -39,11 +40,13 @@ public class ObjectPanController : MonoBehaviour
 
 	private void Zoom ()
 	{
-		print ("Zoominggggg");
-		objectToBePan.transform.position = Vector3.MoveTowards (
-			objectToBePan.transform.position,
-			updatedPos,
-			20 * Time.deltaTime);
+		if (canZoom) {
+			print ("Zoominggggg");
+			objectToBePan.transform.position = Vector3.MoveTowards (
+				objectToBePan.transform.position,
+				updatedPos,
+				150 * Time.deltaTime);
+		}
 	}
 
 
@@ -103,7 +106,6 @@ public class ObjectPanController : MonoBehaviour
 			rotation = RotationClicked.Down;
 		else
 			rotation = RotationClicked.Idle;
-
 	}
 
 	public void Left (bool clicked)
@@ -124,16 +126,17 @@ public class ObjectPanController : MonoBehaviour
 
 	}
 
-	public void ZoomPlus ()
+	public void ZoomPlus (bool clicked)
 	{
-		print ("Zoom Plus");
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -100);
+		canZoom = clicked;
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -300);
 	}
 
-	public void ZoomMinus ()
+	public void ZoomMinus (bool clicked)
 	{
 		print ("Zoom Minus");
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 100);
+		canZoom = clicked;
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 300);
 	}
 
 }

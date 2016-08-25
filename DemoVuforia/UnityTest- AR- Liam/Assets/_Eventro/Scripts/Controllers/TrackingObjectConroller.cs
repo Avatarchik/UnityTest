@@ -129,7 +129,8 @@ namespace Eventro.Testapp.Controllers
 			}	
 
 			// Disable Tracker And Enable Done Button 
-			GameManager.Instance.TargetTracking (false);
+//			if ( Constants.CURRENT_MIXED_REALITY_MODE == Eventro.Testapp.Enums.MixedRealityMode.AR_STEREO)
+				 GameManager.Instance.TargetTracking (false);
 
 			// Provide the postiton of the original ( tracker cube's the instantiated cube 
 			RepositionInstantiatedCube ();

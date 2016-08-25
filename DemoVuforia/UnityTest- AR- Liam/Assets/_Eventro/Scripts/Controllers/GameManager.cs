@@ -130,6 +130,10 @@ namespace Eventro.Testapp.Controllers
 			}
 
 			doneButton.SetActive (!state);
+
+			if (state && ( Constants.CURRENT_MIXED_REALITY_MODE == MixedRealityMode.AR_MONO)) {
+				CubeMovementControls (state);
+			}
 		}
 		#endregion
 	
