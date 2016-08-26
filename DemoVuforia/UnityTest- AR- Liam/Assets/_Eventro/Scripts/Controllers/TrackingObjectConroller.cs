@@ -6,7 +6,7 @@ namespace Eventro.Testapp.Controllers
 {
 	public class TrackingObjectConroller : MonoBehaviour
 	{
-
+		public Transform target;
 		public float speed = 2;
 
 		[Tooltip ("Place the prefab of the cube from the 'Project' view" +
@@ -78,10 +78,21 @@ namespace Eventro.Testapp.Controllers
 		void Update ()
 		{
 			if (moveCube) {
-				instantiatedCube.transform.Translate (Vector3.forward * speed * Time.deltaTime * 1.5f);
-//				instantiatedCube.transform.position = Vector3.MoveTowards (transform.position,
-//					Vuforia.DigitalEyewearBehaviour.Instance.PrimaryCamera.transform.position,1);
+				MoveTowardsTarget ();
 			} 
+		}
+
+		private void MoveTowardsTarget ()
+		{
+			if (Vector3.Distance (instantiatedCube.transform.position, target.position) > .1f) { 
+				Vector3 directionOfTravel = target.position - instantiatedCube.transform.position;
+				directionOfTravel.Normalize ();
+				instantiatedCube.transform.Translate (
+					(directionOfTravel.x * speed * Time.deltaTime),
+					(directionOfTravel.y * speed * Time.deltaTime),
+					(directionOfTravel.z * speed * Time.deltaTime),
+					Space.World);
+			}
 		}
 			
 		/* THis method will handle following casees. i.e. if the user:
@@ -179,7 +190,8 @@ namespace Eventro.Testapp.Controllers
 	
 
 		// ------ Reseting the cube .. Because done button is clicked
-		internal void RestToInitial(){
+		internal void RestToInitial ()
+		{
 			ResetOldCube ();
 			ReEnableCube ();
 			instantiatedCube.SetActive (false);

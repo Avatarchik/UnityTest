@@ -13,20 +13,24 @@ public class ObjectPanController : MonoBehaviour
 
 	}
 
+
 	private RotationClicked rotation;
-	private float speed = 2;
-	private bool canZoom = false;
+	private float rotateSpeed = 2, zoomSpeed = 100;
+	private bool canZoom = false, wantTowardsScreen = false;
+	private Vector3 updatedPos;
+
 	[HideInInspector]
 	public GameObject objectToBePan;
 
-	Vector3 updatedPos;
+	public Transform target;
 
 	// Use this for initialization
 	void Start ()
 	{
 	}
 
-	internal void SetCubePos(){
+	internal void SetCubePos ()
+	{
 		updatedPos = objectToBePan.transform.position;
 	}
 	
@@ -40,10 +44,25 @@ public class ObjectPanController : MonoBehaviour
 	private void Zoom ()
 	{
 		if (canZoom) {
-			objectToBePan.transform.position = Vector3.MoveTowards (
-				objectToBePan.transform.position,
-				updatedPos,
-				150 * Time.deltaTime);
+			MoveCube ();
+		}
+	}
+
+	private void MoveCube ()
+	{
+		Vector3 directionOfTravel;
+		
+		if (Vector3.Distance (objectToBePan.transform.position, target.position) > .1f) { 
+			if (wantTowardsScreen)
+				directionOfTravel = target.position - objectToBePan.transform.position;
+			else
+				directionOfTravel = target.position + objectToBePan.transform.position;
+			directionOfTravel.Normalize ();
+			objectToBePan.transform.Translate (
+				(directionOfTravel.x * zoomSpeed * Time.deltaTime),
+				(directionOfTravel.y * zoomSpeed * Time.deltaTime),
+				(directionOfTravel.z * zoomSpeed * Time.deltaTime),
+				Space.World);
 		}
 	}
 
@@ -52,16 +71,16 @@ public class ObjectPanController : MonoBehaviour
 	{
 		switch (rotation) {
 		case RotationClicked.Up:
-			RotationHori (speed);
+			RotationHori (rotateSpeed);
 			break;
 		case RotationClicked.Down:
-			RotationHori (-speed);
+			RotationHori (-rotateSpeed);
 			break;
 		case RotationClicked.Left:
-			RotationVer (speed);
+			RotationVer (rotateSpeed);
 			break;
 		case RotationClicked.Right:
-			RotationVer (-speed);
+			RotationVer (-rotateSpeed);
 			break;
 		default:
 			break;
@@ -127,14 +146,13 @@ public class ObjectPanController : MonoBehaviour
 	public void ZoomPlus (bool clicked)
 	{
 		canZoom = clicked;
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -700);
+		wantTowardsScreen = true;
 	}
 
 	public void ZoomMinus (bool clicked)
 	{
-		print ("Zoom Minus");
+		wantTowardsScreen = false;
 		canZoom = clicked;
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 700);
 	}
 
 }

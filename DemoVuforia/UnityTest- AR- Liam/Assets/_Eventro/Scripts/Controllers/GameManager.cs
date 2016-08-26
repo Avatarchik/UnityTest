@@ -141,8 +141,6 @@ namespace Eventro.Testapp.Controllers
 			else {
 //				Instantiate(doneButton3D); //.SetActive (!state);
 				doneButton3D.SetActive (!state);
-
-				print ("Enabliung 3D DONE CUBEEEE ");
 			}
 
 			if (state && (Constants.CURRENT_MIXED_REALITY_MODE == MixedRealityMode.AR_MONO)) {
