@@ -25,8 +25,8 @@ public class SwitchMode : MonoBehaviour
 	internal void SwitchMono ()
 	{
 		Constants.CURRENT_MIXED_REALITY_MODE = MixedRealityMode.AR_MONO; 
-		if (Constants.CURRENT_GAME_MODE == GameMode.CubeTest)
-			GameManager.Instance.CubeMovementControls (true);
+//		if (Constants.CURRENT_GAME_MODE == GameMode.CubeTest)
+//			GameManager.Instance.CubeMovementControls (true);
 		tm.mTransitionCursor = 1; 
 	}
 

@@ -71,10 +71,10 @@ public class ObjectPanController : MonoBehaviour
 	{
 		switch (rotation) {
 		case RotationClicked.Up:
-			RotationHori (rotateSpeed);
+			RotationHori (-rotateSpeed);
 			break;
 		case RotationClicked.Down:
-			RotationHori (-rotateSpeed);
+			RotationHori (rotateSpeed);
 			break;
 		case RotationClicked.Left:
 			RotationVer (rotateSpeed);
