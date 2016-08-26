@@ -79,6 +79,7 @@ namespace Eventro.Testapp.Controllers
 
 		private void HandleFoucusedComplete (string objName)
 		{
+			print ("Focus Complete "  + objName);
 			switch (objName) {
 			case "TransformerVideo":
 				// Play transformer video
@@ -86,7 +87,10 @@ namespace Eventro.Testapp.Controllers
 				GameManager.Instance.PlayVideoOf (objName);
 				break;
 
-		
+			case "3DDoneButton":
+				
+				EnableTracking ();
+				break;
 			}
 		}
 

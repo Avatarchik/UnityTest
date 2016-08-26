@@ -18,8 +18,6 @@ public class SwitchMode : MonoBehaviour
 	internal void SwitchStereo ()
 	{
 		Constants.CURRENT_MIXED_REALITY_MODE = MixedRealityMode.AR_STEREO; 
-		if (GameManager.Instance && (Constants.CURRENT_GAME_MODE == GameMode.CubeTest))
-			GameManager.Instance.CubeMovementControls (false);
 		tm.mTransitionCursor = 0; 
 	}
 

@@ -3,7 +3,6 @@ using System.Collections;
 
 public class ObjectPanController : MonoBehaviour
 {
-
 	private enum RotationClicked
 	{
 		Idle,
@@ -41,7 +40,6 @@ public class ObjectPanController : MonoBehaviour
 	private void Zoom ()
 	{
 		if (canZoom) {
-			print ("Zoominggggg");
 			objectToBePan.transform.position = Vector3.MoveTowards (
 				objectToBePan.transform.position,
 				updatedPos,
@@ -129,14 +127,14 @@ public class ObjectPanController : MonoBehaviour
 	public void ZoomPlus (bool clicked)
 	{
 		canZoom = clicked;
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -300);
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, -700);
 	}
 
 	public void ZoomMinus (bool clicked)
 	{
 		print ("Zoom Minus");
 		canZoom = clicked;
-		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 300);
+		updatedPos = objectToBePan.transform.position + new Vector3 (0, 0, 700);
 	}
 
 }

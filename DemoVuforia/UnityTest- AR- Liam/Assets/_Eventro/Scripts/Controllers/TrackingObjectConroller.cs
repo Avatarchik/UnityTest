@@ -25,7 +25,6 @@ namespace Eventro.Testapp.Controllers
 		private GameObject instantiatedCube;
 		private MediaPlayerCtrl mediaCnrtl;
 
-
 		#region Init
 
 		// Use this for initialization
@@ -85,7 +84,7 @@ namespace Eventro.Testapp.Controllers
 			} 
 		}
 			
-	/* THis method will handle following casees. i.e. if the user:
+		/* THis method will handle following casees. i.e. if the user:
 	* 1 first time tracking
 	* 2 Old cube was moving but in between the traker agian come 
 	* 3 The old cube was playing video (i.e. All previous steps of previous tracking are done)
@@ -102,10 +101,6 @@ namespace Eventro.Testapp.Controllers
 				mediaCnrtl.Stop ();
 				mediaCnrtl.UnLoad ();
 			}
-
-//		if (instantiatedCube)
-//			Destroy (instantiatedCube);
-		
 		}
 
 		private void HandleCube () // Tracker Found
@@ -130,7 +125,7 @@ namespace Eventro.Testapp.Controllers
 
 			// Disable Tracker And Enable Done Button 
 //			if ( Constants.CURRENT_MIXED_REALITY_MODE == Eventro.Testapp.Enums.MixedRealityMode.AR_STEREO)
-				 GameManager.Instance.TargetTracking (false);
+			GameManager.Instance.TargetTracking (false);
 
 			// Provide the postiton of the original ( tracker cube's the instantiated cube 
 			RepositionInstantiatedCube ();
@@ -140,6 +135,9 @@ namespace Eventro.Testapp.Controllers
 
 			moveCube = true;
 			StartCoroutine (PlayMovie ());
+
+			// Enable Cube zoom & controls ( if in Mono mode)
+			GameManager.Instance.CubeMovementControls (Constants.CURRENT_MIXED_REALITY_MODE == Eventro.Testapp.Enums.MixedRealityMode.AR_MONO);
 		}
 
 		private IEnumerator PlayMovie ()
@@ -167,6 +165,7 @@ namespace Eventro.Testapp.Controllers
 
 		private void RepositionInstantiatedCube ()
 		{
+			instantiatedCube.SetActive (true);
 			instantiatedCube.transform.position = trackerCube.transform.position;
 			Material mat = Resources.Load<Material> ("VRFocused");
 			instantiatedCube.GetComponent<Renderer> ().material = mat;
@@ -178,5 +177,12 @@ namespace Eventro.Testapp.Controllers
 			trackerCube.SetActive (false);
 		}
 	
+
+		// ------ Reseting the cube .. Because done button is clicked
+		internal void RestToInitial(){
+			ResetOldCube ();
+			ReEnableCube ();
+			instantiatedCube.SetActive (false);
+		}
 	}
 }
