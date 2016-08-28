@@ -9,7 +9,7 @@ public class Simulate : MonoBehaviour
 	/// 1. Contineous - It will let you provide the contineous values in linear Upward/downward
 	/// 2. ContinuousWithFluctuation - It will let you provide the values with some minor up/down with subtraction/addition respectively 
 	/// </summary>
-	private Simulations simulationType = Simulations.ContinuousWithFluctuation;
+	public Simulations simulationType = Simulations.ContinuousWithFluctuation;
 
 	float currentValue = 0;
 	float countLower = 0, countUpper = 360;
