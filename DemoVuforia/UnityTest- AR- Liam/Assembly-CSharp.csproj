@@ -133,6 +133,7 @@
      <Compile Include="Assets\_Eventro\Scripts\GyroRotate.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\Buttons.cs" />
      <Compile Include="Assets\_Eventro\Scripts\UI\CameraRay.cs" />
+     <Compile Include="Assets\_Eventro\zSmoothCompass\PlayerController.cs" />
      <Compile Include="Assets\_Eventro\zSmoothCompass\Simulate.cs" />
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />

@@ -15,15 +15,15 @@ public class Simulate : MonoBehaviour
 	float countLower = 0, countUpper = 360;
 
 	//Increase/ increment speed
-	private float calucateSpeed = 0.05f;
+	public float calucateSpeed = 0.5f;
 
 	private bool isIncrementing = true;
 	private bool canSimulate = false;
 
 	// IT is the range of the variation when value will get Simulate
 	//------------
-	private float fromVariation = 20;
-	private float toVariation = 30;
+	public float fromVariation = 20;
+	public float toVariation = 80;
 
 	private Vector2 VariationRange {
 		get { 
@@ -34,15 +34,17 @@ public class Simulate : MonoBehaviour
 
 	//It will let you very small amount of values to in opposite direction
 	// as it was going
-	private bool needFluctuation = true;
-	private float fluctuationVlaue = 0.0001f;
+	public bool needFluctuation = true;
+	public float fluctuationValueLower = -0.5f;
+	public float fluctuationValueUpper = 0.01f;
 
-	private float FluctuateValue {
+
+	private Vector2 FluctuateValue {
 		get {
 			if (needFluctuation)
-				return fluctuationVlaue;
+				return new Vector2 (fluctuationValueLower, fluctuationValueUpper);
 			else
-				return 0f;
+				return Vector2.zero;
 		}
 	}
 	//--------------------
@@ -118,22 +120,26 @@ public class Simulate : MonoBehaviour
 			isIncrementing = true;
 		}
 		CalculateVal (isIncrementing, canFluctuate);
-		print (currentValue);
+//		print (currentValue);
 	}
 
 	private void CalculateVal (bool isInc, bool fluctuation = false)
 	{
 		if (isInc) {
 			currentValue = currentValue + calucateSpeed;
-			if (fluctuation && Random.Range (0, 5) == 3) {
-				currentValue = currentValue - FluctuateValue;
-			}
+			if (fluctuation)
+				currentValue = currentValue + Random.Range (FluctuateValue.x, FluctuateValue.y);
 		} else {
 			currentValue = currentValue - calucateSpeed;
-			if (fluctuation && Random.Range (0, 5) == 1)
-				currentValue = currentValue + FluctuateValue;
+			if (fluctuation)
+				currentValue = currentValue - Random.Range (FluctuateValue.y, FluctuateValue.x);
 		}
 
+	}
+
+	public float GetSimulatedValue ()
+	{
+		return currentValue;
 	}
 }
 
@@ -141,5 +147,5 @@ public enum Simulations
 {
 	Continuous,
 	ContinuousWithFluctuation,
-//	ContinuousWithLittleDelay,
+	//	ContinuousWithLittleDelay,
 }
