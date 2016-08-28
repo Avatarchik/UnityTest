@@ -12,7 +12,6 @@ namespace Eventro.Testapp.Controllers
 	{
 
 		public static UIManager Instance;
-		private bool modeToggle = false;
 
 		[SerializeField]
 		private GameObject cubeMovementControls;

@@ -3,21 +3,29 @@ using System.Collections;
 
 public class Simulate : MonoBehaviour
 {
-	private Simulations simulationType = Simulations.Continuous;
+
+	/// <summary>
+	/// The type of the simulations.
+	/// 1. Contineous - It will let you provide the contineous values in linear Upward/downward
+	/// 2. ContinuousWithFluctuation - It will let you provide the values with some minor up/down with subtraction/addition respectively 
+	/// </summary>
+	private Simulations simulationType = Simulations.ContinuousWithFluctuation;
 
 	float currentValue = 0;
 	float countLower = 0, countUpper = 360;
 
-	//Increase/ increment spees
+	//Increase/ increment speed
 	private float calucateSpeed = 0.05f;
 
+	private bool isIncrementing = true;
+	private bool canSimulate = false;
 
 	// IT is the range of the variation when value will get Simulate
 	//------------
-	private float fromVariation = 30;
-	private float toVariation = 40;
+	private float fromVariation = 20;
+	private float toVariation = 30;
 
-	public Vector2 VariationRange {
+	private Vector2 VariationRange {
 		get { 
 			return new Vector2 (fromVariation, toVariation);
 		}
@@ -37,6 +45,8 @@ public class Simulate : MonoBehaviour
 				return 0f;
 		}
 	}
+	//--------------------
+
 
 
 	#region Init
@@ -57,13 +67,26 @@ public class Simulate : MonoBehaviour
 			Debug.LogError ("Your Minimum count range is greater than the Maximum!!");
 			return;
 		}
+
+		if (toVariation > countUpper) {
+			Debug.LogError ("Your variation limit exceeded than the maxCount");
+			return;
+		}
+
+		if (countLower > fromVariation) {
+			Debug.LogError ("Your variation limit is below than the lowest value");
+			return;
+		}
+
 		if (calucateSpeed == 0) {
-			Debug.LogError ("You increament speed is zero the code can't be execute");
+			Debug.LogError ("Your increament speed is zero the code can't be execute");
 			return;
 		}
 
 		if (simulationType == Simulations.ContinuousWithFluctuation)
 			needFluctuation = true;
+
+		canSimulate = true;
 
 	}
 
@@ -72,16 +95,19 @@ public class Simulate : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		switch (simulationType) {
-		case Simulations.Continuous:
-			ContineousSimulation ();
-			break;
-		}
+		if (canSimulate)
+			switch (simulationType) {
+			case Simulations.Continuous:
+				ContineousSimulation ();
+				break;
+			case Simulations.ContinuousWithFluctuation:
+				ContineousSimulation (true);
+				break;
+			}
 	}
 
-	private bool isIncrementing = true;
 
-	private void ContineousSimulation ()
+	private void ContineousSimulation (bool canFluctuate = false)
 	{
 		// 1. start the value from the lowe count and increase that
 		// 2. when the vlaue will reach the 'fromVariation' then it will get loop between 'fromVariation' & 'toVariation'
@@ -91,7 +117,7 @@ public class Simulate : MonoBehaviour
 		} else if (currentValue <= VariationRange.x) {// Now increase to remain in the range 
 			isIncrementing = true;
 		}
-		CalculateVal (isIncrementing);
+		CalculateVal (isIncrementing, canFluctuate);
 		print (currentValue);
 	}
 
@@ -99,8 +125,13 @@ public class Simulate : MonoBehaviour
 	{
 		if (isInc) {
 			currentValue = currentValue + calucateSpeed;
+			if (fluctuation && Random.Range (0, 5) == 3) {
+				currentValue = currentValue - FluctuateValue;
+			}
 		} else {
 			currentValue = currentValue - calucateSpeed;
+			if (fluctuation && Random.Range (0, 5) == 1)
+				currentValue = currentValue + FluctuateValue;
 		}
 
 	}
@@ -110,5 +141,5 @@ public enum Simulations
 {
 	Continuous,
 	ContinuousWithFluctuation,
-	WithLittleDelay,
+//	ContinuousWithLittleDelay,
 }

@@ -21,8 +21,6 @@ namespace Eventro.Testapp.Controllers
 		public GameObject[] oppositeDoneButton;
 		public GameObject[] trackingObjects;
 
-		private SwitchMode switchMode;
-		private TransactionModes transactionMode;
 		private ObjectPanController objectPanController;
 		private TrackingObjectConroller trackingObjectController;
 
@@ -39,8 +37,6 @@ namespace Eventro.Testapp.Controllers
 		private void InitAwake ()
 		{
 			Instance = this;
-			switchMode = gameObject.GetComponent<SwitchMode> ();
-			transactionMode = gameObject.GetComponent<TransactionModes> ();
 			videoPlayController = new VideoPlaybackController ();
 //			currentMixedRealityMode = MixedRealityMode.AR_STEREO;
 //			SetMixedRealityMode (currentMixedRealityMode);	

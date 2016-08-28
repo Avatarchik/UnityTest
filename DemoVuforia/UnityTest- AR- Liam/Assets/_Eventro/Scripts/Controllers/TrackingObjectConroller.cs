@@ -21,7 +21,7 @@ namespace Eventro.Testapp.Controllers
 
 
 		private string videoMaterialName = "";
-		private bool foundStatus = false, moveCube = false;
+		private bool moveCube = false;
 		private GameObject instantiatedCube;
 		private MediaPlayerCtrl mediaCnrtl;
 
@@ -63,10 +63,8 @@ namespace Eventro.Testapp.Controllers
 			if (GameManager.Instance.isTrakingEnabled) {
 				if (obj) { // Object Found
 					ResetOldCube ();
-					foundStatus = true;
 					HandleCube ();
 				} else { // Object Lost
-					foundStatus = false;
 					ReEnableCube ();
 				}
 			}
