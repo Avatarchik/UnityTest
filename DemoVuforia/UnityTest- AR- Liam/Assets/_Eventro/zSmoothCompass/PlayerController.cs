@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
 
 		if (smoothType == Smooth.WithDelyInSeconds)
 			InvokeRepeating ("GetValuesWithDelayInterval", 0, delayInSeconds);
+
+		Input.location.Start ();
+		Input.compass.enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +31,9 @@ public class PlayerController : MonoBehaviour
 			break;
 		case Smooth.WithDelyInSeconds:
 			SetEulerAngle (delayReturn);
+			break;
+		case Smooth.ReadCompassValue:
+			SetEulerAngle (Input.compass.trueHeading);
 			break;
 		}
 	}
@@ -59,6 +65,10 @@ public class PlayerController : MonoBehaviour
 		delayReturn = simulate.GetSimulatedValue ();
 		return delayReturn;
 	}
+
+	public void SmoothToggleUI(UnityEngine.UI.Toggle toggle){
+		smoothMovement = toggle.isOn;
+	}
 }
 
 public enum Smooth
@@ -68,6 +78,7 @@ public enum Smooth
 
 	// It will send value to the player as with some delays
 	WithDelyInSeconds,
+	ReadCompassValue,
 
 	
 }
