@@ -6,11 +6,11 @@ public class PlayerController : MonoBehaviour
 {
 	public bool smoothMovement = false;
 	public Smooth smoothType = Smooth.WithDelyInSeconds;
+	public  float threshold = 0.012f;//  0.007f;
 	private Simulate simulate;
 
 	private float delayInSeconds = 0.1f;
 	private float simulatedValue = 0;
-	private const float threshold = 0.012f;//  0.007f;
 
 	// Use this for initialization
 	void Start ()
