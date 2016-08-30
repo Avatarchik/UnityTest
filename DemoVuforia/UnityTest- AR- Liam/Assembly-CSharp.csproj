@@ -135,6 +135,11 @@
      <Compile Include="Assets\_Eventro\Scripts\UI\CameraRay.cs" />
      <Compile Include="Assets\_Eventro\zSmoothCompass\PlayerController.cs" />
      <Compile Include="Assets\_Eventro\zSmoothCompass\Simulate.cs" />
+     <Compile Include="Assets\itsHarshdeep\LoadingBetweenScenes\Scripts\Constants.cs" />
+     <Compile Include="Assets\itsHarshdeep\LoadingBetweenScenes\Scripts\LoadRequestedScene.cs" />
+     <Compile Include="Assets\itsHarshdeep\LoadingBetweenScenes\Scripts\LoadingSceneController.cs" />
+     <Compile Include="Assets\itsHarshdeep\LoadingBetweenScenes\Scripts\LoadingSceneDemo.cs" />
+     <Compile Include="Assets\itsHarshdeep\LoadingBetweenScenes\Scripts\SceneController.cs" />
      <None Include="Assets\Vuforia\Shaders\ColoredLines.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\readme_SDK.txt" />

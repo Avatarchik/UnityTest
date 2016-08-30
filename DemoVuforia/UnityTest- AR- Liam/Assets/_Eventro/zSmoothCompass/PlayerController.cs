@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
 	private float delayInSeconds = 0.1f;
 	private float simulatedValue = 0;
+	private const float threshold = 0.012f;//  0.007f;
 
 	// Use this for initialization
 	void Start ()
@@ -17,9 +19,10 @@ public class PlayerController : MonoBehaviour
 
 		if (smoothType == Smooth.WithDelyInSeconds)
 			InvokeRepeating ("GetValuesWithDelayInterval", 0, delayInSeconds);
-
-		Input.location.Start ();
-		Input.compass.enabled = true;
+		else if (smoothType == Smooth.ReadCompassValue) {
+			Input.location.Start ();
+			Input.compass.enabled = true;
+		}
 	}
 	
 	// Update is called once per frame
@@ -40,14 +43,16 @@ public class PlayerController : MonoBehaviour
 
 	private void SetEulerAngle (float value)
 	{
+//		print ("without  diff "+ value );
+//		print ("with diff "+ GetDiff (value) );
 		if (smoothMovement) {
 			Quaternion target = Quaternion.Euler (
-				                    gameObject.transform.eulerAngles.x,
-				                    value,
-				                    gameObject.transform.eulerAngles.z);
-
-			transform.rotation = Quaternion.Slerp (transform.rotation,
-				target, 1f * Time.deltaTime);
+				                     gameObject.transform.eulerAngles.x,
+				                     value,
+				                     gameObject.transform.eulerAngles.z);
+			if (GetDiff (value) > threshold)
+				transform.rotation = Quaternion.Slerp (transform.rotation,
+					target, 1f * Time.deltaTime);
 		} else {
 			gameObject.transform.eulerAngles = new Vector3 (
 				gameObject.transform.eulerAngles.x,
@@ -55,7 +60,6 @@ public class PlayerController : MonoBehaviour
 				gameObject.transform.eulerAngles.z
 			);
 		}
-		
 	}
 
 	private float delayReturn = 0;
@@ -66,8 +70,16 @@ public class PlayerController : MonoBehaviour
 		return delayReturn;
 	}
 
-	public void SmoothToggleUI(UnityEngine.UI.Toggle toggle){
+	public void SmoothToggleUI (UnityEngine.UI.Toggle toggle)
+	{
 		smoothMovement = toggle.isOn;
+	}
+
+	private float GetDiff (float value)
+	{
+		float diff = Mathf.Abs (value) - Mathf.Abs (transform.rotation.y);
+		diff = Mathf.Abs (diff);
+		return (float)Math.Round (diff, 3);
 	}
 }
 

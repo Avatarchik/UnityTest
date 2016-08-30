@@ -51,7 +51,7 @@ public class SwitchMode : MonoBehaviour
 		else if (scneName == Constants.SCENE_NAME_2)
 			Constants.CURRENT_GAME_MODE = GameMode.VideoPlayerTest;
 
-		UnityEngine.SceneManagement.SceneManager.LoadScene (scneName.ToString ());
+		ItsHarshdeep.LoadingScene.Controller.SceneController.LoadLevel(scneName.ToString (),1);
 	}
 
 }
